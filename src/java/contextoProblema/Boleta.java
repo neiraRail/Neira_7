@@ -9,6 +9,7 @@ public class Boleta {
 	private int nroID;
 
 	private Calendar fecha=Calendar.getInstance();
+
 	private double _total=0;
 	private ArrayList<TipoPlato> consumo = new ArrayList<>();
 	Boleta(int nroBoletas) {
@@ -31,7 +32,7 @@ public class Boleta {
 	}
 
 	public String toString(){
-		return "Fecha: "+fecha.getTime()+ " N°: "+nroID+
+		return "Fecha: "+getFecha()+ " N°: "+nroID+
 				"\n"+getConsumo()+
 				"Total:"+getTotal();
 	}
@@ -53,6 +54,13 @@ public class Boleta {
 	}
 
 	public String toCSV() {
-		return getNroID()+","+fecha.getTime()+","+consumoCSV()+getTotal();
+		return getNroID()+","+getFecha()+","+consumoCSV()+getTotal();
+	}
+
+	private String getFecha(){
+		int year       = fecha.get(Calendar.YEAR);
+		int month      = fecha.get(Calendar.MONTH); // Jan = 0, dec = 11
+		int dayOfMonth = fecha.get(Calendar.DAY_OF_MONTH);
+		return dayOfMonth+"/"+month+"/"+year;
 	}
 }
