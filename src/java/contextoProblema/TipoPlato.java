@@ -1,15 +1,25 @@
 package contextoProblema;
 
 public enum TipoPlato {
-	Empanada(1000),
-	Pizza(1500),
-	Churro(800),
-	Papas_Fritas(600),
-	Humita(1200);
+	Empanada(1000, new double[]{20, 0, 0, 0, 0, 0, 0, 1, 0,0}),
+	Pizza(1500, new double[]{100, 100, 0, 0, 0, 20, 1, 0, 0,0}),
+	Churro(800,new double[]{0, 0, 1, 20, 0, 0, 0, 0, 50,0}),
+	Papas_Fritas(600,new double[]{0, 0, 0, 0, 500, 0, 0, 0, 100,0}),
+	Humita(1200,new double[]{0, 50, 0, 0, 0, 0, 0, 0, 0, 100});
 
 	private double precio;
-	private TipoPlato(double precio) {
+	private double[] receta;
+	private TipoPlato(double precio,double[] receta) {
 		this.precio=precio;
+		this.receta=receta;
+	}
+
+	public double faltante(Inventario i){
+		return receta[i.ordinal()]-i.getCantidad();
+	}
+
+	public double[] getReceta() {
+		return receta;
 	}
 
 	public double getPrecio(){

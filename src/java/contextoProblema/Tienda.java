@@ -7,33 +7,79 @@ import java.util.ArrayList;
 
 
 public class Tienda {
-	private ArrayList<Boleta> talonario = new ArrayList<>();
-	private int nroBoletas=talonario.size();
 
-
-	public void emitirBoleta() {
-		ControlCSV ctrl = new ControlCSV();
-		ctrl.escribirBoleta(getBoletActual());
-		nroBoletas++;
+	private Mesa[] mesas = {new Mesa(this),new Mesa(this),new Mesa(this),new Mesa(this)};
+	private Inventario inventario;
+	private Caja caja;
+	private Cocina cocina;
+	public Caja getCaja() {
+		return caja;
 	}
 
 	public Tienda() {
+		caja = new Caja(this);
+		cocina = new Cocina(this);
+		//inventario.comprarAutomatico();
 	}
 
-	public void abrirBoleta() {
-		Boleta boleta = new Boleta(nroBoletas);
-		talonario.add(boleta);
-		ControlCSV ctrl = new ControlCSV();
-		ctrl.crearArchivo(boleta);
+	public Cocina getCocina() {
+		return cocina;
 	}
 
-	public void mostrarTalonario() {
-		for (Boleta boleta : talonario) {
-			System.out.println(boleta);
+	public String getInventario(){
+		StringBuilder stringBuilder=new StringBuilder();
+		for(Inventario i:Inventario.values()){
+			stringBuilder.append(i.name()).append(": ").append(i.getCantidad()).append("\n");
 		}
+		return stringBuilder.toString();
 	}
 
-	public Boleta getBoletActual(){
-		return talonario.get(talonario.size()-1);
+	public void ocuparMesa(int nroMesa){
+		Boleta boleta=caja.abrirBoleta(nroMesa);
+		mesas[nroMesa]=new Mesa(this);
+		mesas[nroMesa].setBoleta(boleta);
+		mesas[nroMesa].setOcupado(true);
+	}
+
+	public void comprarAutomatico(){
+		double gasto = calcularGastoAutomatico();
+		for(Inventario i:Inventario.values()) {
+			i.setCantidad(i.getIdeal());
+		}
+		caja.hacer_Egreso(gasto);
+	}
+
+	private double calcularGastoAutomatico() {
+		double total=0;
+		double gasto;
+		for(Inventario i:Inventario.values()){
+			gasto=(i.getPrecio_compra_min()*(i.getIdeal()-i.getCantidad()))/i.getMinimo();
+			total+=gasto;
+		}
+		return total;
+	}
+
+	public void comprarPersonalizado(double[] pedido) {
+		for(Inventario i:Inventario.values()){
+			i.setCantidad(i.getCantidad()+pedido[i.ordinal()]);
+		}
+		double gasto = calcularGastoPersonalizado(pedido);
+		caja.hacer_Egreso(gasto);
+	}
+
+	private double calcularGastoPersonalizado(double[] pedido) {
+		double total=0;
+		double gasto;
+		for(Inventario i:Inventario.values()){
+			gasto=(i.getPrecio_compra_min()*pedido[i.ordinal()])/i.getMinimo();
+			total+=gasto;
+		}
+		return total;
+	}
+
+
+
+	public Mesa getMesa(int nroMesa) {
+		return mesas[nroMesa];
 	}
 }
