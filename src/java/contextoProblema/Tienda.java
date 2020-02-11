@@ -35,10 +35,12 @@ public class Tienda {
 	}
 
 	public void ocuparMesa(int nroMesa){
-		Boleta boleta=caja.abrirBoleta(nroMesa);
-		mesas[nroMesa]=new Mesa(this);
-		mesas[nroMesa].setBoleta(boleta);
-		mesas[nroMesa].setOcupado(true);
+		if(!mesas[nroMesa].esOcupado()) {
+			Boleta boleta = caja.abrirBoleta(nroMesa);
+			mesas[nroMesa] = new Mesa(this);
+			mesas[nroMesa].setBoleta(boleta);
+			mesas[nroMesa].setOcupado(true);
+		}
 	}
 
 	public void comprarAutomatico(){
