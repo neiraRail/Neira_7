@@ -3,56 +3,51 @@ package contextoProblema;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-
 public class Boleta {
 	private int nroID;
-
+	private int nroMesa;
+	private Tienda tienda;
 	private Calendar fecha=Calendar.getInstance();
-	private double _total=0;
-	private ArrayList<TipoPlato> consumo = new ArrayList<>();
-	Boleta(int nroBoletas) {
+    private ArrayList<TipoPlato> consumo= new ArrayList<>();
+
+
+
+	Boleta(int nroBoletas,Tienda tienda,int nroMesa) {
 		this.nroID=nroBoletas;
+		this.tienda=tienda;
+		this.nroMesa=nroMesa;
 	}
 
-	private double getTotal() {
-		return this._total;
+    ArrayList<TipoPlato> getConsumo() {
+        return consumo;
+    }
+
+	public double getTotal() {
+		double total=0;
+		for(TipoPlato plato:consumo){
+			total+=plato.getPrecio();
+		}
+		return total;
 	}
 
 	public int getNroID() {
 		return nroID;
 	}
 
-	public void agregarPlato(int opcion) {
-		TipoPlato plato = TipoPlato.get(opcion);
-		consumo.add(plato);
-		assert plato != null;
-		_total+=plato.getPrecio();
+	private String getFecha(){
+		int year       = fecha.get(Calendar.YEAR);
+		int month      = fecha.get(Calendar.MONTH); // Jan = 0, dec = 11
+		int dayOfMonth = fecha.get(Calendar.DAY_OF_MONTH);
+		return dayOfMonth+"/"+month+"/"+year;
 	}
 
 	public String toString(){
-		return "Fecha: "+fecha.getTime()+ " N°: "+nroID+
-				"\n"+getConsumo()+
-				"Total:"+getTotal();
-	}
-
-	private String getConsumo() {
-		StringBuilder platos = new StringBuilder();
-		for (TipoPlato tipoPlato : consumo) {
-			platos.append(tipoPlato.toStringLista());
-		}
-		return platos.toString();
-	}
-
-	private String consumoCSV(){
-		StringBuilder platos = new StringBuilder();
-		for (TipoPlato tipoPlato : consumo) {
-			platos.append(tipoPlato).append(",");
-		}
-		return platos.toString();
+		return "Fecha: "+getFecha()+ " N°: "+nroID+
+				"\n"+consumo+
+				"Total:"+this.getTotal();
 	}
 
 	public String toCSV() {
-		return getNroID()+","+fecha.getTime()+","+consumoCSV()+getTotal();
+		return getNroID()+","+getFecha()+","+tienda.getMesa(nroMesa).consumoCSV()+this.getTotal();
 	}
 }

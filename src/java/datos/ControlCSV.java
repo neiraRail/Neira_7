@@ -27,7 +27,7 @@ public class ControlCSV {
 		}
 	}
 
-	public void escribirBoleta(Boleta boletActual) {
+	public void imprimirBoleta(Boleta boletActual) {
 		try {
 			File file = new File("Boleta_"+boletActual.getNroID()+".csv");
 			FileWriter fw = new FileWriter(file,true);
