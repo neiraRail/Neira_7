@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
 public class Ventana extends JFrame {
     private Tienda tienda = new Tienda();
 
-    // Los cuatro botones correspondientes a cada mesa
+    // Los cuatro botones correspondientes a cada mesa, cambiar a arraylist
     private JButton button1 = new JButton("Mesa 1 "+tienda.getMesa(0).esOcupado());
     private JButton button2 = new JButton("Mesa 2 "+tienda.getMesa(1).esOcupado());
     private JButton button3 = new JButton("Mesa 3 "+tienda.getMesa(0).esOcupado());
@@ -22,6 +22,8 @@ public class Ventana extends JFrame {
     public Ventana(){
         tienda.comprarAutomatico();
     }
+
+
 
     public void iniciar_Vista_Mesas() {
         // Cuando la ventana cierre, el programa terminará
@@ -309,4 +311,27 @@ public class Ventana extends JFrame {
     }
 
 
+
+    public void iniciar_vista_administrador(){
+        JFrame frame = new JFrame();
+        frame.setSize(400,400);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("Vista Administrador");
+
+        JPanel panel = new JPanel(new GridLayout(0,1));
+        JButton Boton1 = new JButton("Ver inventario");
+        JButton Boton2 = new JButton("Buscar Bolet");
+        JButton Boton3 = new JButton("Ver Balance");
+        JButton Boton4 = new JButton("Comprar");
+
+        panel.add(Boton1);
+        panel.add(Boton2);
+        panel.add(Boton3);
+        panel.add(Boton4);
+
+        frame.getContentPane().add(panel);
+
+        frame.setVisible(true);
+    }
 }
