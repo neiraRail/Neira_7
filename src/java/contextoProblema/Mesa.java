@@ -8,16 +8,11 @@ import java.util.Objects;
 public class Mesa {
     private boolean ocupado = false;
     private Boleta boleta;
-
     private Tienda tienda;
 
     Mesa(Tienda tienda){
         this.tienda=tienda;
     }
-
-
-
-
 
     void setBoleta(Boleta boleta){
         this.boleta=boleta;

@@ -330,8 +330,114 @@ public class Ventana extends JFrame {
         panel.add(Boton3);
         panel.add(Boton4);
 
+        // Gestion de evento click del mouse
+        MouseListener mouseListener=new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if(mouseEvent.getSource().equals(Boton1)){
+                    vista_ver_Inventario();
+                }
+                if(mouseEvent.getSource().equals(Boton2)){
+                    vista_buscar_Boleta();
+                }
+                if(mouseEvent.getSource().equals(Boton3)){
+                    vista_ver_Balance();
+                }
+                if(mouseEvent.getSource().equals(Boton4)){
+                    
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        };
+        // Añadir comportamiento a todos los botones.
+        Boton1.addMouseListener(mouseListener);
+        Boton2.addMouseListener(mouseListener);
+        Boton3.addMouseListener(mouseListener);
+        Boton4.addMouseListener(mouseListener);
+
         frame.getContentPane().add(panel);
 
         frame.setVisible(true);
+    }
+
+    private void vista_ver_Balance() {
+        JFrame frame = new JFrame();
+        frame.setSize(400,400);
+        frame.setLocationRelativeTo(null);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("Balance");
+        frame.setLayout(new GridLayout(1,1));
+
+        JTextArea balance = new JTextArea("a\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na");
+        balance.setEditable(false);
+
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(balance);
+
+        frame.getContentPane().add(scroll);
+
+        frame.setVisible(true);
+    }
+
+    private void vista_ver_Inventario() {
+        JFrame frame = new JFrame();
+        frame.setSize(400,400);
+        frame.setLocationRelativeTo(null);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("Inventario");
+        frame.setLayout(new GridLayout(1,1));
+
+        JTextArea inventario = new JTextArea("a\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na");
+        inventario.setEditable(false);
+
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(inventario);
+
+        frame.getContentPane().add(scroll);
+
+        frame.setVisible(true);
+    }
+
+    private void vista_buscar_Boleta(){
+        JFrame frame = new JFrame();
+        frame.setSize(400,400);
+        frame.setLocationRelativeTo(null);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("Buscar Boleta");
+        frame.setLayout(new GridLayout(2,1));
+
+        JPanel panel = new JPanel();
+        JTextField vista_Boleta = new JTextField();
+
+        JLabel label1 = new JLabel("Numero de Boleta:");
+        JTextField buscador = new JTextField(10);
+        JButton botonBuscar = new JButton("Buscar");
+
+        panel.add(label1);
+        panel.add(buscador);
+        panel.add(botonBuscar);
+
+        frame.getContentPane().add(panel);
+        frame.getContentPane().add(vista_Boleta);
+
+        frame.setVisible(true);
+
+
     }
 }
