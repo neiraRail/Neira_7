@@ -8,7 +8,10 @@ public enum TipoPlato {
 	Humita(1200,new double[]{0, 50, 0, 0, 0, 0, 0, 0, 0, 100});
 
 	private double precio;
+
+	//Podria ser un objeto
 	private double[] receta;
+
 	private TipoPlato(double precio,double[] receta) {
 		this.precio=precio;
 		this.receta=receta;
@@ -40,8 +43,6 @@ public enum TipoPlato {
 	public String toString(){
 		return name()+": $"+getPrecio();
 	}
-	public String toStringLista(){
-		return name()+": $"+getPrecio()+"\n";
-	}
+
 
 }

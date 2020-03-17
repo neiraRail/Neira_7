@@ -12,14 +12,15 @@ public class Tienda {
 	private Inventario inventario;
 	private Caja caja;
 	private Cocina cocina;
-	public Caja getCaja() {
-		return caja;
-	}
 
 	public Tienda() {
 		caja = new Caja(this);
 		cocina = new Cocina(this);
 		//inventario.comprarAutomatico();
+	}
+
+	public Caja getCaja() {
+		return caja;
 	}
 
 	public Cocina getCocina() {
@@ -46,7 +47,7 @@ public class Tienda {
 	public void comprarAutomatico(){
 		double gasto = calcularGastoAutomatico();
 		for(Inventario i:Inventario.values()) {
-			i.setCantidad(i.getIdeal());
+			i.setCantidad(i.getMax());
 		}
 		caja.hacer_Egreso(gasto);
 	}
@@ -55,7 +56,7 @@ public class Tienda {
 		double total=0;
 		double gasto;
 		for(Inventario i:Inventario.values()){
-			gasto=(i.getPrecio_compra_min()*(i.getIdeal()-i.getCantidad()))/i.getMinimo();
+			gasto=(i.getPrecio_compra_min()*(i.getMax()-i.getCantidad()))/i.getMinimo();
 			total+=gasto;
 		}
 		return total;

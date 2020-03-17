@@ -13,13 +13,13 @@ public enum Inventario {
     MAIZ(1000,5000,0,2500);//GRAMOS
 
     private double minimo;
-    private double ideal;
+    private double max;
     private double cantidad;
     private double precio_compra_min;
 
-    Inventario(double minimo,double ideal, double cantidad, double precio_compra_min){
+    Inventario(double minimo,double max, double cantidad, double precio_compra_min){
         this.minimo=minimo;
-        this.ideal=ideal;
+        this.max=max;
         this.cantidad=cantidad;
         this.precio_compra_min=precio_compra_min;
     }
@@ -28,8 +28,8 @@ public enum Inventario {
         return minimo;
     }
 
-    public double getIdeal(){
-        return ideal;
+    public double getMax(){
+        return max;
     }
 
     public double getCantidad() {
