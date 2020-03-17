@@ -50,4 +50,15 @@ public class Boleta {
 	public String toCSV() {
 		return getNroID()+","+getFecha()+","+tienda.getMesa(nroMesa).consumoCSV()+this.getTotal();
 	}
+	public String toJSON(){return "{"+"id:"+getNroID()+","+"fecha:"+getFecha()+","+"consumo:["+consumoToJson()+"],total:"+getTotal()+"}";}
+
+	private String consumoToJson(){
+		String str="";
+		ArrayList <TipoPlato> consumo = getConsumo();
+		for (int i=0; i<consumo.size();i++){
+			str= str+String.valueOf(consumo.get(i).getPrecio())+",";
+		}
+
+		return str;
+	}
 }
