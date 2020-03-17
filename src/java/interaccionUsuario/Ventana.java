@@ -17,10 +17,10 @@ public class Ventana extends JFrame {
     private Tienda tienda = new Tienda();
 
     // Los cuatro botones correspondientes a cada mesa, cambiar a arraylist
-    private JButton button1 = new JButton("Mesa 1 "+tienda.getMesa(0).esOcupado());
-    private JButton button2 = new JButton("Mesa 2 "+tienda.getMesa(1).esOcupado());
-    private JButton button3 = new JButton("Mesa 3 "+tienda.getMesa(0).esOcupado());
-    private JButton button4 = new JButton("Mesa 4 "+tienda.getMesa(0).esOcupado() );
+    private JButton button1 = new JButton("Mesa 1 ");
+    private JButton button2 = new JButton("Mesa 2 ");
+    private JButton button3 = new JButton("Mesa 3 ");
+    private JButton button4 = new JButton("Mesa 4 ");
 
     public Ventana(){
         tienda.comprarAutomatico();
@@ -41,6 +41,11 @@ public class Ventana extends JFrame {
 
         // Panel principal, dividido en 4
         JPanel panel1 = new JPanel(new GridLayout(2,2));
+        //Color verde default
+        button1.setBackground(Color.GREEN);
+        button2.setBackground(Color.GREEN);
+        button3.setBackground(Color.GREEN);
+        button4.setBackground(Color.GREEN);
 
 
         // Añadir los botones al panel
@@ -320,10 +325,22 @@ public class Ventana extends JFrame {
     }
 
     private void actualizar_MainButtons() {
-        button1.setText("Mesa 1 "+tienda.getMesa(0).esOcupado());
-        button2.setText("Mesa 2 "+tienda.getMesa(1).esOcupado());
-        button3.setText("Mesa 3 "+tienda.getMesa(2).esOcupado());
-        button4.setText("Mesa 4 "+tienda.getMesa(3).esOcupado());
+        if(tienda.getMesa(0).esOcupado())
+            button1.setBackground(Color.RED);
+        else
+            button1.setBackground(Color.GREEN);
+        if(tienda.getMesa(1).esOcupado())
+            button2.setBackground(Color.RED);
+        else
+            button2.setBackground(Color.GREEN);
+        if(tienda.getMesa(2).esOcupado())
+            button3.setBackground(Color.RED);
+        else
+            button3.setBackground(Color.GREEN);
+        if(tienda.getMesa(3).esOcupado())
+            button4.setBackground(Color.RED);
+        else
+            button4.setBackground(Color.GREEN);
     }
 
 
