@@ -1,11 +1,14 @@
 package interaccionUsuario;
 
+import contextoProblema.Egreso;
+import contextoProblema.Ingreso;
 import contextoProblema.Tienda;
 import contextoProblema.TipoPlato;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -26,6 +29,7 @@ public class Ventana extends JFrame {
 
 
     public void iniciar_Vista_Mesas() {
+
         // Cuando la ventana cierre, el programa terminará
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         // Tamaño de la ventana
@@ -47,7 +51,6 @@ public class Ventana extends JFrame {
         // Añadir lo anterior al frame
         this.getContentPane().add(panel1);
         // Hacer la ventana visible
-        this.setVisible(true);
 
         // Gestion de evento click del mouse
         MouseListener mouseListener=new MouseListener() {
@@ -89,6 +92,7 @@ public class Ventana extends JFrame {
         button2.addMouseListener(mouseListener);
         button3.addMouseListener(mouseListener);
         button4.addMouseListener(mouseListener);
+        this.setVisible(true);
     }
 
 
@@ -114,10 +118,12 @@ public class Ventana extends JFrame {
 
     private void ventana_Mesa_Libre(int nroMesa) {
         // Se crea y se ajusta la ventana
-        JFrame frame = new JFrame();
-        frame.setSize(400,400);
-        frame.setLocationRelativeTo(null);
-        frame.setTitle("Mesa "+(nroMesa+1));
+        JDialog dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.setSize(400,400);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setTitle("Mesa "+(nroMesa+1));
         // Panel principal
         JPanel panel2 = new JPanel();
         // Area donde se muestra el consumo
@@ -130,14 +136,14 @@ public class Ventana extends JFrame {
 
         // Se agrega el boton al panel y el panel al frame
         panel2.add(agregar_Plato);
-        frame.getContentPane().add(area,BorderLayout.CENTER);
-        frame.getContentPane().add(panel2,BorderLayout.EAST);
+        dialog.getContentPane().add(area,BorderLayout.CENTER);
+        dialog.getContentPane().add(panel2,BorderLayout.EAST);
 
         // Gestion del evento click del mouse
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                ventana_Pedido(nroMesa,frame);
+                ventana_Pedido(nroMesa,dialog);
             }
 
             @Override
@@ -151,7 +157,7 @@ public class Ventana extends JFrame {
         };
 
         agregar_Plato.addMouseListener(mouseListener);
-        frame.setVisible(true);
+        dialog.setVisible(true);
     }
 
     private void ventana_Mesa_Ocupada(int nroMesa) {
@@ -159,10 +165,12 @@ public class Ventana extends JFrame {
         String consumo = tienda.getMesa(nroMesa).consumoString()+"\nTotal: "+tienda.getMesa(nroMesa).getBoleta().getTotal();
 
         // Se crea y se ajusta la ventana
-        JFrame frame = new JFrame();
-        frame.setSize(400,400);
-        frame.setLocationRelativeTo(null);
-        frame.setTitle("Mesa "+(nroMesa+1));
+        JDialog dialog = new JDialog();
+        dialog.setModal(true);
+        dialog.setSize(400,400);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setTitle("Mesa "+(nroMesa+1));
 
         //Panel principal
         JPanel panel2 = new JPanel();
@@ -181,8 +189,8 @@ public class Ventana extends JFrame {
         //Se agregan los botones al panel y el panel al frame
         panel2.add(agregar_Plato);
         panel2.add(cancelar_Cuenta);
-        frame.getContentPane().add(area,BorderLayout.CENTER);
-        frame.getContentPane().add(panel2,BorderLayout.EAST);
+        dialog.getContentPane().add(area,BorderLayout.CENTER);
+        dialog.getContentPane().add(panel2,BorderLayout.EAST);
 
         //Gestion del evento click del mouse
         MouseListener mouseListener = new MouseListener() {
@@ -190,15 +198,15 @@ public class Ventana extends JFrame {
             public void mouseClicked(MouseEvent mouseEvent) {
                 if(mouseEvent.getSource().equals(agregar_Plato)){
                     // Se abre una nueva ventana para hacer el pedido.
-                    ventana_Pedido(nroMesa,frame);
+                    ventana_Pedido(nroMesa,dialog);
                 }
                 else {
                     // Se emite una boleta en formato csv
                     tienda.getCaja().emitirBoleta(nroMesa);
                     // Aviso de boleta emitida
-                    boleta_Emitida();
+                    boleta_Emitida(dialog);
                     // Se cierra esta ventana
-                    frame.dispose();
+                    dialog.dispose();
                 }
             }
             @Override
@@ -214,23 +222,26 @@ public class Ventana extends JFrame {
         agregar_Plato.addMouseListener(mouseListener);
         cancelar_Cuenta.addMouseListener(mouseListener);
 
-        frame.setVisible(true);
+        dialog.setVisible(true);
     }
 
-    private void boleta_Emitida() {
-        JFrame frame = new JFrame("Aviso");
-        frame.setSize(250,100);
-        frame.setLocationRelativeTo(null);
+    private void boleta_Emitida(JDialog frame) {
+        JDialog dialog = new JDialog(frame);
+        dialog.setModal(true);
+        int LAST = tienda.getCaja().getTalonario().size()-1;
+        int HEIGHT = tienda.getCaja().getTalonario().get(LAST).getConsumo().size() * 15 + 115;
+        dialog.setSize(250,HEIGHT);
+        dialog.setLocationRelativeTo(null);
         JLabel label = new JLabel("Boleta Emitida Correctamente");
-        frame.add(label,BorderLayout.NORTH);
-        frame.add(new JButton("OK"),BorderLayout.SOUTH);
-        frame.setVisible(true);
-        actualizar_MainButtons();
+        JTextArea boleta = new JTextArea(tienda.getCaja().getTalonario().get(LAST).toString());
+        boleta.setEditable(false);
+        dialog.add(label,BorderLayout.NORTH);
+        dialog.add(boleta,BorderLayout.CENTER);
 
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                frame.dispose();
+                dialog.dispose();
             }
 
             @Override
@@ -246,13 +257,17 @@ public class Ventana extends JFrame {
             public void mouseExited(MouseEvent mouseEvent) {            }
         };
 
-        frame.getContentPane().getComponents()[1].addMouseListener(mouseListener);
+        JButton boton_OK = new JButton("OK");
+        dialog.add(boton_OK,BorderLayout.SOUTH);
+        actualizar_MainButtons();
+        boton_OK.addMouseListener(mouseListener);
+        dialog.setVisible(true);
     }
 
-    private void ventana_Pedido(int nroMesa, JFrame frameAnt) {
-        JFrame frame = new JFrame();
-
-        frame.setLocationRelativeTo(null);
+    private void ventana_Pedido(int nroMesa, JDialog frameAnt) {
+        JDialog dialog = new JDialog(frameAnt);
+        dialog.setModal(true);
+        dialog.setLocationRelativeTo(null);
 
         JPanel panel=new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -267,9 +282,8 @@ public class Ventana extends JFrame {
             panel.add(botones_platos[i]);
         }
 
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        dialog.add(panel);
+        dialog.pack();
 
         //Gestion de Eventos
 
@@ -278,10 +292,11 @@ public class Ventana extends JFrame {
             public void mouseClicked(MouseEvent mouseEvent) {
                 for(int i=0;i<5;i++){
                     if(mouseEvent.getSource().equals(botones_platos[i])){
+                        System.out.println("boton presseed");
                         tienda.ocuparMesa(nroMesa);
                         actualizar_MainButtons();
                         tienda.getMesa(nroMesa).hacerPedido(i);
-                        frame.dispose();
+                        dialog.dispose();
                         frameAnt.dispose();
                         ventana_Mesa_Ocupada(nroMesa);
                     }
@@ -301,6 +316,7 @@ public class Ventana extends JFrame {
         for(int i=0;i<5;i++){
             botones_platos[i].addMouseListener(mouseListener);
         }
+        dialog.setVisible(true);
     }
 
     private void actualizar_MainButtons() {
@@ -344,7 +360,7 @@ public class Ventana extends JFrame {
                     vista_ver_Balance();
                 }
                 if(mouseEvent.getSource().equals(Boton4)){
-                    
+                    vista_comprar_ingredientes();
                 }
             }
 
@@ -384,7 +400,7 @@ public class Ventana extends JFrame {
         frame.setTitle("Balance");
         frame.setLayout(new GridLayout(1,1));
 
-        JTextArea balance = new JTextArea("a\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na");
+        JTextArea balance = new JTextArea(mostrar_Balance(tienda));
         balance.setEditable(false);
 
         JScrollPane scroll = new JScrollPane();
@@ -403,13 +419,27 @@ public class Ventana extends JFrame {
         frame.setTitle("Inventario");
         frame.setLayout(new GridLayout(1,1));
 
-        JTextArea inventario = new JTextArea("a\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na");
+        JTextArea inventario = new JTextArea(tienda.getInventario());
         inventario.setEditable(false);
 
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(inventario);
 
         frame.getContentPane().add(scroll);
+
+        frame.setVisible(true);
+    }
+
+    private void vista_comprar_ingredientes(){
+        JFrame frame = new JFrame();
+        frame.setSize(400,400);
+        frame.setLocationRelativeTo(null);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setTitle("Comprar");
+
+
+        JPanel panel = new JPanel(new GridLayout(1,2));
+        JTextArea area = new JTextArea();
 
         frame.setVisible(true);
     }
@@ -422,8 +452,9 @@ public class Ventana extends JFrame {
         frame.setTitle("Buscar Boleta");
         frame.setLayout(new GridLayout(2,1));
 
+
         JPanel panel = new JPanel();
-        JTextField vista_Boleta = new JTextField();
+        JTextArea vista_Boleta = new JTextArea();
 
         JLabel label1 = new JLabel("Numero de Boleta:");
         JTextField buscador = new JTextField(10);
@@ -432,6 +463,43 @@ public class Ventana extends JFrame {
         panel.add(label1);
         panel.add(buscador);
         panel.add(botonBuscar);
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                int numero = Integer.parseInt(buscador.getText());
+                vista_Boleta.setText(tienda.getCaja().getTalonario().get(numero).toString());
+            }
+        };
+
+        MouseListener mouseListener=new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                int numero = Integer.parseInt(buscador.getText());
+                vista_Boleta.setText(tienda.getCaja().getTalonario().get(numero).toString());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        };
+        // Añadir comportamiento a todos los botones.
+        botonBuscar.addMouseListener(mouseListener);
+        buscador.addActionListener(action);
 
         frame.getContentPane().add(panel);
         frame.getContentPane().add(vista_Boleta);
@@ -440,4 +508,19 @@ public class Ventana extends JFrame {
 
 
     }
+
+    private String mostrar_Balance(Tienda tienda) {
+        StringBuilder balance = new StringBuilder();
+        for(Ingreso i:tienda.getCaja().getIngresos()){
+            balance.append(i.toString()).append("\n");
+        }
+        for(Egreso e:tienda.getCaja().getEgresos()){
+            balance.append(e.toString()).append("\n");
+        }
+        balance.append("\tTotal: ").append(tienda.getCaja().getSaldo()).append("\n");
+
+        return balance.toString();
+    }
+
+
 }

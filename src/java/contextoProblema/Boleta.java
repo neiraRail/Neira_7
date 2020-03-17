@@ -18,7 +18,7 @@ public class Boleta {
 		this.nroMesa=nroMesa;
 	}
 
-    ArrayList<TipoPlato> getConsumo() {
+    public ArrayList<TipoPlato> getConsumo() {
         return consumo;
     }
 
@@ -42,9 +42,15 @@ public class Boleta {
 	}
 
 	public String toString(){
-		return "Fecha: "+getFecha()+ " N°: "+nroID+
-				"\n"+consumo+
-				"Total:"+this.getTotal();
+		StringBuilder boleta = new StringBuilder();
+		boleta.append("Fecha: ").append(getFecha()).append(" N°: ");
+		boleta.append(nroID).append("\n");
+		for (TipoPlato tipoPlato : consumo) {
+			boleta.append(tipoPlato.toString()).append("\n");
+		}
+		boleta.append("Total:").append(this.getTotal());
+
+		return boleta.toString();
 	}
 
 	public String toCSV() {

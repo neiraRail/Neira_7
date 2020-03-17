@@ -33,7 +33,7 @@ public class Mesa {
     public String consumoString() {
         StringBuilder platos = new StringBuilder();
         for (TipoPlato tipoPlato : boleta.getConsumo()) {
-            platos.append(tipoPlato.toStringLista());
+            platos.append(tipoPlato.toString()).append("\n");
         }
         return platos.toString();
     }
@@ -58,7 +58,7 @@ public class Mesa {
         }
     }
 
-    public void agregarPlato(int opcion)throws Sin_Ingredientes_Excepcion {
+    private void agregarPlato(int opcion)throws Sin_Ingredientes_Excepcion {
         TipoPlato plato = TipoPlato.get(opcion);
         tienda.getCocina().usarIngredientes(plato);
         boleta.getConsumo().add(plato);

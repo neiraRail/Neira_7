@@ -43,8 +43,6 @@ public enum TipoPlato {
 	public String toString(){
 		return name()+": $"+getPrecio();
 	}
-	public String toStringLista(){
-		return name()+": $"+getPrecio()+"\n";
-	}
+
 
 }

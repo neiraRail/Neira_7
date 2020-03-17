@@ -6,12 +6,17 @@ import java.util.ArrayList;
 
 public class Caja {
     private ArrayList<Boleta> talonario = new ArrayList<>();
+
     private Tienda tienda;
     private ArrayList<Ingreso> ingresos = new ArrayList<>();
     private ArrayList<Egreso> egresos = new ArrayList<>();
 
     Caja(Tienda tienda){
         this.tienda=tienda;
+    }
+
+    public ArrayList<Boleta> getTalonario() {
+        return talonario;
     }
 
     public ArrayList<Ingreso> getIngresos() {
