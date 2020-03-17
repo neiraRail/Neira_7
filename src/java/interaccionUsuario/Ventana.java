@@ -1,14 +1,18 @@
 package interaccionUsuario;
 
+
 import contextoProblema.Egreso;
 import contextoProblema.Ingreso;
+
 import contextoProblema.Tienda;
 import contextoProblema.TipoPlato;
 
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,11 +20,13 @@ import java.awt.event.MouseListener;
 public class Ventana extends JFrame {
     private Tienda tienda = new Tienda();
 
+
     // Los cuatro botones correspondientes a cada mesa, cambiar a arraylist
     private JButton button1 = new JButton("Mesa 1 ");
     private JButton button2 = new JButton("Mesa 2 ");
     private JButton button3 = new JButton("Mesa 3 ");
     private JButton button4 = new JButton("Mesa 4 ");
+
 
     public Ventana(){
         tienda.comprarAutomatico();
@@ -28,7 +34,9 @@ public class Ventana extends JFrame {
 
 
 
+
     public void iniciar_Vista_Mesas() {
+
 
         // Cuando la ventana cierre, el programa terminará
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,11 +49,13 @@ public class Ventana extends JFrame {
 
         // Panel principal, dividido en 4
         JPanel panel1 = new JPanel(new GridLayout(2,2));
+
         //Color verde default
         button1.setBackground(Color.GREEN);
         button2.setBackground(Color.GREEN);
         button3.setBackground(Color.GREEN);
         button4.setBackground(Color.GREEN);
+
 
 
         // Añadir los botones al panel
@@ -56,6 +66,7 @@ public class Ventana extends JFrame {
         // Añadir lo anterior al frame
         this.getContentPane().add(panel1);
         // Hacer la ventana visible
+
 
         // Gestion de evento click del mouse
         MouseListener mouseListener=new MouseListener() {
@@ -97,7 +108,9 @@ public class Ventana extends JFrame {
         button2.addMouseListener(mouseListener);
         button3.addMouseListener(mouseListener);
         button4.addMouseListener(mouseListener);
+
         this.setVisible(true);
+
     }
 
 
@@ -123,12 +136,14 @@ public class Ventana extends JFrame {
 
     private void ventana_Mesa_Libre(int nroMesa) {
         // Se crea y se ajusta la ventana
+
         JDialog dialog = new JDialog();
         dialog.setModal(true);
         dialog.setSize(400,400);
         dialog.setResizable(false);
         dialog.setLocationRelativeTo(null);
         dialog.setTitle("Mesa "+(nroMesa+1));
+
         // Panel principal
         JPanel panel2 = new JPanel();
         // Area donde se muestra el consumo
@@ -141,13 +156,16 @@ public class Ventana extends JFrame {
 
         // Se agrega el boton al panel y el panel al frame
         panel2.add(agregar_Plato);
+
         dialog.getContentPane().add(area,BorderLayout.CENTER);
         dialog.getContentPane().add(panel2,BorderLayout.EAST);
+
 
         // Gestion del evento click del mouse
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+
                 ventana_Pedido(nroMesa,dialog);
             }
 
@@ -162,7 +180,9 @@ public class Ventana extends JFrame {
         };
 
         agregar_Plato.addMouseListener(mouseListener);
+
         dialog.setVisible(true);
+
     }
 
     private void ventana_Mesa_Ocupada(int nroMesa) {
@@ -170,12 +190,14 @@ public class Ventana extends JFrame {
         String consumo = tienda.getMesa(nroMesa).consumoString()+"\nTotal: "+tienda.getMesa(nroMesa).getBoleta().getTotal();
 
         // Se crea y se ajusta la ventana
+
         JDialog dialog = new JDialog();
         dialog.setModal(true);
         dialog.setSize(400,400);
         dialog.setResizable(false);
         dialog.setLocationRelativeTo(null);
         dialog.setTitle("Mesa "+(nroMesa+1));
+
 
         //Panel principal
         JPanel panel2 = new JPanel();
@@ -194,8 +216,10 @@ public class Ventana extends JFrame {
         //Se agregan los botones al panel y el panel al frame
         panel2.add(agregar_Plato);
         panel2.add(cancelar_Cuenta);
+
         dialog.getContentPane().add(area,BorderLayout.CENTER);
         dialog.getContentPane().add(panel2,BorderLayout.EAST);
+
 
         //Gestion del evento click del mouse
         MouseListener mouseListener = new MouseListener() {
@@ -203,15 +227,19 @@ public class Ventana extends JFrame {
             public void mouseClicked(MouseEvent mouseEvent) {
                 if(mouseEvent.getSource().equals(agregar_Plato)){
                     // Se abre una nueva ventana para hacer el pedido.
+
                     ventana_Pedido(nroMesa,dialog);
+
                 }
                 else {
                     // Se emite una boleta en formato csv
                     tienda.getCaja().emitirBoleta(nroMesa);
                     // Aviso de boleta emitida
+
                     boleta_Emitida(dialog);
                     // Se cierra esta ventana
                     dialog.dispose();
+
                 }
             }
             @Override
@@ -226,6 +254,7 @@ public class Ventana extends JFrame {
         //Se añade el comportamiento a los botones
         agregar_Plato.addMouseListener(mouseListener);
         cancelar_Cuenta.addMouseListener(mouseListener);
+
 
         dialog.setVisible(true);
     }
@@ -243,10 +272,13 @@ public class Ventana extends JFrame {
         dialog.add(label,BorderLayout.NORTH);
         dialog.add(boleta,BorderLayout.CENTER);
 
+
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+
                 dialog.dispose();
+
             }
 
             @Override
@@ -261,6 +293,7 @@ public class Ventana extends JFrame {
             @Override
             public void mouseExited(MouseEvent mouseEvent) {            }
         };
+
 
         JButton boton_OK = new JButton("OK");
         dialog.add(boton_OK,BorderLayout.SOUTH);
@@ -287,8 +320,10 @@ public class Ventana extends JFrame {
             panel.add(botones_platos[i]);
         }
 
+
         dialog.add(panel);
         dialog.pack();
+
 
         //Gestion de Eventos
 
@@ -297,6 +332,7 @@ public class Ventana extends JFrame {
             public void mouseClicked(MouseEvent mouseEvent) {
                 for(int i=0;i<5;i++){
                     if(mouseEvent.getSource().equals(botones_platos[i])){
+
                         System.out.println("boton presseed");
                         tienda.ocuparMesa(nroMesa);
                         actualizar_MainButtons();
@@ -321,6 +357,7 @@ public class Ventana extends JFrame {
         for(int i=0;i<5;i++){
             botones_platos[i].addMouseListener(mouseListener);
         }
+
         dialog.setVisible(true);
     }
 

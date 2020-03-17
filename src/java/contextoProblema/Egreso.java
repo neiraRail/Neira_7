@@ -8,6 +8,7 @@ public class Egreso {
 
     @Override
     public String toString() {
+
         return "Egreso "+caja.getEgresos().size()+":\t\t\t $"+monto;
     }
 

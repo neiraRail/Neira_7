@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Mesa {
     private boolean ocupado = false;
     private Boleta boleta;
+
     private Tienda tienda;
 
     Mesa(Tienda tienda){
@@ -57,6 +58,7 @@ public class Mesa {
             }
         }
     }
+
 
     private void agregarPlato(int opcion)throws Sin_Ingredientes_Excepcion {
         TipoPlato plato = TipoPlato.get(opcion);

@@ -13,6 +13,7 @@ public class Tienda {
 	private Caja caja;
 	private Cocina cocina;
 
+
 	public Tienda() {
 		caja = new Caja(this);
 		cocina = new Cocina(this);
@@ -33,6 +34,7 @@ public class Tienda {
 			stringBuilder.append(i.name()).append(": ").append(i.getCantidad()).append("\n");
 		}
 		return stringBuilder.toString();
+
 	}
 
 	public void ocuparMesa(int nroMesa){
@@ -61,6 +63,7 @@ public class Tienda {
 		}
 		return total;
 	}
+
 
 	public void comprarPersonalizado(double[] pedido) {
 		for(Inventario i:Inventario.values()){

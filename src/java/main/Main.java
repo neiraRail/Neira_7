@@ -3,6 +3,9 @@ import interaccionUsuario.Menu;
 import interaccionUsuario.Ventana;
 
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Main{
 
 	public static void main(String[] aArgs) {
@@ -13,5 +16,5 @@ public class Main{
 		m.desplegarMenu();
 
 
-	}
+
 }

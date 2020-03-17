@@ -18,6 +18,7 @@ public class Boleta {
 		this.nroMesa=nroMesa;
 	}
 
+
     public ArrayList<TipoPlato> getConsumo() {
         return consumo;
     }
@@ -42,18 +43,30 @@ public class Boleta {
 	}
 
 	public String toString(){
-		StringBuilder boleta = new StringBuilder();
-		boleta.append("Fecha: ").append(getFecha()).append(" N°: ");
-		boleta.append(nroID).append("\n");
-		for (TipoPlato tipoPlato : consumo) {
-			boleta.append(tipoPlato.toString()).append("\n");
-		}
-		boleta.append("Total:").append(this.getTotal());
+    StringBuilder boleta = new StringBuilder();
+    boleta.append("Fecha: ").append(getFecha()).append(" N°: ");
+    boleta.append(nroID).append("\n");
+    for (TipoPlato tipoPlato : consumo) {
+      boleta.append(tipoPlato.toString()).append("\n");
+    }
+    boleta.append("Total:").append(this.getTotal());
 
-		return boleta.toString();
+    return boleta.toString();
 	}
 
 	public String toCSV() {
 		return getNroID()+","+getFecha()+","+tienda.getMesa(nroMesa).consumoCSV()+this.getTotal();
+    
+	public String toJSON(){return "{"+"id:"+getNroID()+","+"fecha:"+getFecha()+","+"consumo:["+consumoToJson()+"],total:"+getTotal()+"}";}
+
+	private String consumoToJson(){
+		String str="";
+		ArrayList <TipoPlato> consumo = getConsumo();
+		for (int i=0; i<consumo.size();i++){
+			str= str+String.valueOf(consumo.get(i).getPrecio())+",";
+		}
+
+		return str;
+
 	}
 }

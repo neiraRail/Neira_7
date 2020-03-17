@@ -9,7 +9,6 @@ public enum TipoPlato {
 
 	private double precio;
 
-	//Podria ser un objeto
 	private double[] receta;
 
 	private TipoPlato(double precio,double[] receta) {
