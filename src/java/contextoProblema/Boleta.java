@@ -55,9 +55,15 @@ public class Boleta {
 	}
 
 	public String toCSV() {
-		return getNroID()+","+getFecha()+","+tienda.getMesa(nroMesa).consumoCSV()+this.getTotal();
+		return getNroID() + "," + getFecha() + "," + tienda.getMesa(nroMesa).consumoCSV() + this.getTotal();
+	}
     
-	public String toJSON(){return "{"+"id:"+getNroID()+","+"fecha:"+getFecha()+","+"consumo:["+consumoToJson()+"],total:"+getTotal()+"}";}
+	public String toJSON(){
+		return "{"+"id:"+getNroID()+","+"fecha:"+getFecha()+","+"consumo:["+consumoToJson()+"],total:"+getTotal()+"}";
+
+
+	}
+
 
 	private String consumoToJson(){
 		String str="";
