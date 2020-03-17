@@ -6,24 +6,27 @@ import java.util.ArrayList;
 
 public class Cocina {
 
-    private final Tienda tienda;
+private Tienda tienda;
+
 
     public Cocina(Tienda tienda) {
         this.tienda = tienda;
     }
 
     void usarIngredientes(TipoPlato plato) throws Sin_Ingredientes_Excepcion{
-        ArrayList<Inventario> faltas=new ArrayList<>();
+
+        ArrayList<Inventario> faltantes=new ArrayList<>();
         for (Inventario i:Inventario.values()) {
             if(plato.getReceta()[i.ordinal()]<=i.getCantidad()) {
                 i.setCantidad(i.getCantidad() - plato.getReceta()[i.ordinal()]);
             }
             else {
-                faltas.add(i);
+
+                faltantes.add(i);
             }
         }
-        if (faltas.size()>0){
-            throw new Sin_Ingredientes_Excepcion(faltas);
+        if (faltantes.size()>0){
+            throw new Sin_Ingredientes_Excepcion(faltantes);
         }
     }
 

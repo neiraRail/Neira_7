@@ -8,7 +8,8 @@ public class Egreso {
 
     @Override
     public String toString() {
-        return "Egreso "+caja.getEgresos().size()+":\t\t $"+monto;
+
+        return "Egreso "+caja.getEgresos().size()+":\t\t\t $"+monto;
     }
 
     public Egreso(double monto, Caja caja){

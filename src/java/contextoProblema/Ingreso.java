@@ -11,7 +11,9 @@ public class Ingreso {
 
     @Override
     public String toString() {
-        return "Ingreso "+boleta.getNroID()+": $"+monto;
+
+        return "Ingreso "+boleta.getNroID()+":\t $"+monto;
+
     }
 
     public Boleta getBoleta() {

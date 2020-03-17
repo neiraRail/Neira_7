@@ -14,6 +14,12 @@ public class Caja {
         this.tienda=tienda;
     }
 
+
+    public ArrayList<Boleta> getTalonario() {
+        return talonario;
+    }
+
+  
     public ArrayList<Ingreso> getIngresos() {
         return ingresos;
     }
