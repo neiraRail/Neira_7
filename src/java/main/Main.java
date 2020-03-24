@@ -6,7 +6,7 @@ import interaccionUsuario.Ventana;
 import javax.swing.*;
 import java.awt.*;
 
-public class Main{
+public class Main {
 
 	public static void main(String[] aArgs) {
 		Ventana v1 = new Ventana();
@@ -16,5 +16,5 @@ public class Main{
 		m.desplegarMenu();
 
 
-
+	}
 }

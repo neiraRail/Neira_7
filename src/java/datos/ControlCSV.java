@@ -11,9 +11,13 @@ public class ControlCSV {
 	public ControlCSV() {
 	}
 
-	public void crearArchivo(Boleta boleta) {
+	public void crearBoleta(Boleta boleta) {
+		crearArchivo("Boleta "+boleta.getNroID());
+	}
+
+	public void crearArchivo(String nombre) {
 		try {
-			File file = new File("Boleta_"+boleta.getNroID()+".csv");
+			File file = new File(nombre+".csv");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -23,6 +27,18 @@ public class ControlCSV {
 			}
 		}
 		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void imprimirInventario(){
+		try {
+			File file = new File("Inventario"+".csv");
+			FileWriter fw = new FileWriter(file,false);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write("\n");
+			bw.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

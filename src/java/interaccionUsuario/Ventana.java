@@ -29,17 +29,31 @@ public class Ventana extends JFrame {
 
 
     public Ventana(){
-        tienda.comprarAutomatico();
+        //tienda.comprarAutomatico();
     }
 
 
 
 
     public void iniciar_Vista_Mesas() {
+        JFrame frame = this;
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            //Codigo para preguntar antes de salir
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame,
+                        "Are you sure you want to close this window?", "Close Window?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 
+                    System.exit(0);
+                }
+                tienda.guardarDatos();
+            }
+        });
 
         // Cuando la ventana cierre, el programa terminará
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // Tamaño de la ventana
         setSize(500,500);
         // La ventana se colocará en el centro de la pantalla.

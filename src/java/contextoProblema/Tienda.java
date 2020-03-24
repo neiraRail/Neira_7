@@ -1,6 +1,7 @@
 package contextoProblema;
 
 import datos.ControlCSV;
+import datos.Datos;
 
 import javax.naming.ldap.Control;
 import java.util.ArrayList;
@@ -88,4 +89,11 @@ public class Tienda {
 	public Mesa getMesa(int nroMesa) {
 		return mesas[nroMesa];
 	}
+
+    public void guardarDatos() {
+		Datos datos = new Datos(this);
+		datos.guardarInventario();
+		datos.guardarTalonario();
+		datos.guardarBalance();
+    }
 }

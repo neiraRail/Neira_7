@@ -13,7 +13,6 @@ public enum Inventario {
     MAIZ(1000,5000,0,2500);//GRAMOS
 
     private double minimo;
-
     private double max;
     private double cantidad;
     private double precio_compra_min;

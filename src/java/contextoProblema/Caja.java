@@ -48,7 +48,7 @@ public class Caja {
         this.talonario.add(boleta);
 
         ControlCSV ctrl = new ControlCSV();
-        ctrl.crearArchivo(boleta);
+        ctrl.crearBoleta(boleta);
         return boleta;
     }
 

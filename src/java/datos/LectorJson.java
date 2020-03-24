@@ -14,6 +14,7 @@ public class LectorJson {
     public LectorJson(String ruta){
         this.ruta=ruta;
     }
+
     public String leer_Archivo() throws IOException {
         File file = new File(ruta);
         if(!file.exists())
