@@ -10,9 +10,15 @@ import java.util.ArrayList;
 public class Tienda {
 
 	private Mesa[] mesas = {new Mesa(this),new Mesa(this),new Mesa(this),new Mesa(this)};
-	private Inventario inventario;
+
 	private Caja caja;
 	private Cocina cocina;
+
+	public Inventario getInventario() {
+		return inventario;
+	}
+
+	private Inventario inventario = new Inventario();
 
 
 	public Tienda() {
@@ -29,14 +35,7 @@ public class Tienda {
 		return cocina;
 	}
 
-	public String getInventario(){
-		StringBuilder stringBuilder=new StringBuilder();
-		for(Inventario i:Inventario.values()){
-			stringBuilder.append(i.name()).append(": ").append(i.getCantidad()).append("\n");
-		}
-		return stringBuilder.toString();
 
-	}
 
 	public void ocuparMesa(int nroMesa){
 		if(!mesas[nroMesa].esOcupado()) {
@@ -49,7 +48,7 @@ public class Tienda {
 
 	public void comprarAutomatico(){
 		double gasto = calcularGastoAutomatico();
-		for(Inventario i:Inventario.values()) {
+		for(Ingredientes i:Ingredientes.values()) {
 			i.setCantidad(i.getMax());
 		}
 		caja.hacer_Egreso(gasto);
@@ -58,7 +57,7 @@ public class Tienda {
 	private double calcularGastoAutomatico() {
 		double total=0;
 		double gasto;
-		for(Inventario i:Inventario.values()){
+		for(Ingredientes i:Ingredientes.values()){
 			gasto=(i.getPrecio_compra_min()*(i.getMax()-i.getCantidad()))/i.getMinimo();
 			total+=gasto;
 		}
@@ -67,7 +66,7 @@ public class Tienda {
 
 
 	public void comprarPersonalizado(double[] pedido) {
-		for(Inventario i:Inventario.values()){
+		for(Ingredientes i:Ingredientes.values()){
 			i.setCantidad(i.getCantidad()+pedido[i.ordinal()]);
 		}
 		double gasto = calcularGastoPersonalizado(pedido);
@@ -77,7 +76,7 @@ public class Tienda {
 	private double calcularGastoPersonalizado(double[] pedido) {
 		double total=0;
 		double gasto;
-		for(Inventario i:Inventario.values()){
+		for(Ingredientes i:Ingredientes.values()){
 			gasto=(i.getPrecio_compra_min()*pedido[i.ordinal()])/i.getMinimo();
 			total+=gasto;
 		}
@@ -91,9 +90,10 @@ public class Tienda {
 	}
 
     public void guardarDatos() {
-		Datos datos = new Datos(this);
-		datos.guardarInventario();
+		Datos datos = new Datos();
+		datos.guardarInventario(inventario);
 		datos.guardarTalonario();
 		datos.guardarBalance();
+		System.out.println("Fin del programa");
     }
 }

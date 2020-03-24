@@ -16,7 +16,7 @@ public enum TipoPlato {
 		this.receta=receta;
 	}
 
-	public double faltante(Inventario i){
+	public double faltante(Ingredientes i){
 		return receta[i.ordinal()]-i.getCantidad();
 	}
 

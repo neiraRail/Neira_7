@@ -45,10 +45,10 @@ public class Ventana extends JFrame {
                         "Are you sure you want to close this window?", "Close Window?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-
+                    tienda.guardarDatos();
                     System.exit(0);
                 }
-                tienda.guardarDatos();
+
             }
         });
 
@@ -398,9 +398,25 @@ public class Ventana extends JFrame {
 
     public void iniciar_vista_administrador(){
         JFrame frame = new JFrame();
+        //Codigo para preguntar antes de salir.
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            //Codigo para preguntar antes de salir
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame,
+                        "Are you sure you want to close this window?", "Close Window?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    tienda.guardarDatos();
+                    System.exit(0);
+                }
+
+            }
+        });
+        //Caracteristicas de la ventana
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setTitle("Vista Administrador");
 
         JPanel panel = new JPanel(new GridLayout(0,1));
@@ -487,7 +503,7 @@ public class Ventana extends JFrame {
         frame.setTitle("Inventario");
         frame.setLayout(new GridLayout(1,1));
 
-        JTextArea inventario = new JTextArea(tienda.getInventario());
+        JTextArea inventario = new JTextArea(tienda.getInventario().toString());
         inventario.setEditable(false);
 
         JScrollPane scroll = new JScrollPane();

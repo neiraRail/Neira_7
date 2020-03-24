@@ -1,6 +1,7 @@
 package datos;
 
 import contextoProblema.Boleta;
+import contextoProblema.Inventario;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,12 +32,12 @@ public class ControlCSV {
 		}
 	}
 
-	public void imprimirInventario(){
+	public void imprimirInventario(Inventario inventario){
 		try {
 			File file = new File("Inventario"+".csv");
 			FileWriter fw = new FileWriter(file,false);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write("\n");
+			bw.write(inventario.toCSV());
 			bw.close();
 		} catch (Exception e) {
 			e.printStackTrace();

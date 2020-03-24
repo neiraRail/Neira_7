@@ -53,7 +53,7 @@ public class Mesa {
         }
         catch (Sin_Ingredientes_Excepcion SIE){
             System.out.println("Faltan los siguientes Ingredientes");
-            for(Inventario i:SIE.ingredientes){
+            for(Ingredientes i:SIE.ingredientes){
                 System.out.println(i.name()+": "+ Objects.requireNonNull(TipoPlato.get(opcion)).faltante(i));
             }
         }

@@ -111,7 +111,7 @@ public class Menu {
 	private void pedido_Especial(Tienda tienda) {
 		Scanner scanner=new Scanner(System.in);
 		double[] pedido = new double[10];
-		for(Inventario i:Inventario.values()){
+		for(Ingredientes i:Ingredientes.values()){
 			System.out.println("Ingrese la cantidad de "+i.name());
 			pedido[i.ordinal()] = scanner.nextInt();
 		}

@@ -15,8 +15,8 @@ private Tienda tienda;
 
     void usarIngredientes(TipoPlato plato) throws Sin_Ingredientes_Excepcion{
 
-        ArrayList<Inventario> faltantes=new ArrayList<>();
-        for (Inventario i:Inventario.values()) {
+        ArrayList<Ingredientes> faltantes=new ArrayList<>();
+        for (Ingredientes i:Ingredientes.values()) {
             if(plato.getReceta()[i.ordinal()]<=i.getCantidad()) {
                 i.setCantidad(i.getCantidad() - plato.getReceta()[i.ordinal()]);
             }
