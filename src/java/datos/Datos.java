@@ -1,5 +1,6 @@
 package datos;
 
+import contextoProblema.Boleta;
 import contextoProblema.Inventario;
 import contextoProblema.Tienda;
 
@@ -19,7 +20,8 @@ public class Datos {
         csv.imprimirInventario(inventario);
     }
 
-    public void guardarTalonario() {
+    public void guardarBoleta(Boleta boleta) {
+        escritorJson.agregarObjeto(boleta);
     }
 
     public void guardarBalance() {

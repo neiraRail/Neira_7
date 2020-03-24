@@ -92,7 +92,6 @@ public class Tienda {
     public void guardarDatos() {
 		Datos datos = new Datos();
 		datos.guardarInventario(inventario);
-		datos.guardarTalonario();
 		datos.guardarBalance();
 		System.out.println("Fin del programa");
     }

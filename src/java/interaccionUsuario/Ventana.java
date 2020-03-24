@@ -29,7 +29,7 @@ public class Ventana extends JFrame {
 
 
     public Ventana(){
-        //tienda.comprarAutomatico();
+        tienda.comprarAutomatico();
     }
 
 
@@ -248,6 +248,7 @@ public class Ventana extends JFrame {
                 else {
                     // Se emite una boleta en formato csv
                     tienda.getCaja().emitirBoleta(nroMesa);
+                    tienda.getCaja().guardarBoleta(nroMesa);
                     // Aviso de boleta emitida
 
                     boleta_Emitida(dialog);

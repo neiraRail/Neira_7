@@ -1,6 +1,7 @@
 package contextoProblema;
 
 import datos.ControlCSV;
+import datos.EscritorJson;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,10 @@ public class Caja {
         return total_CI-total_CE;
     }
 
+    public void guardarBoleta(int nroMesa) {
+        EscritorJson escritorJson = new EscritorJson("Talonario.json");
+        escritorJson.agregarObjeto(tienda.getMesa(nroMesa).getBoleta());
+    }
 }
 
 

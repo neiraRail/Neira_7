@@ -8,13 +8,13 @@ import java.io.PrintWriter;
 
 public class EscritorJson {
 
-    String ruta;
+    private String ruta;
 
     public EscritorJson(String ruta){
         this.ruta=ruta;
     }
 
-    public void agregarObjeto(Boleta boleta) throws IOException {
+    public void agregarObjeto(Boleta boleta){
         LectorJson lector = new LectorJson(ruta);
         String texto=lector.leer_Archivo();
         String target="]}";

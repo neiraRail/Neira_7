@@ -15,7 +15,7 @@ public class LectorJson {
         this.ruta=ruta;
     }
 
-    public String leer_Archivo() throws IOException {
+    public String intentar_leer_Archivo() throws IOException {
         File file = new File(ruta);
         if(!file.exists())
             file.createNewFile();
@@ -72,6 +72,18 @@ public class LectorJson {
             }
         }
         return "";
+    }
+
+    public String leer_Archivo() {
+        String file = "";
+        try {
+           file = intentar_leer_Archivo();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return file;
     }
 
 
