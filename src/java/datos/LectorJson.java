@@ -11,11 +11,11 @@ public class LectorJson {
     private String ruta;
 
 
-    public LectorJson(String ruta){
+    LectorJson(String ruta){
         this.ruta=ruta;
     }
 
-    public String intentar_leer_Archivo() throws IOException {
+    private String intentar_leer_Archivo() throws IOException {
         File file = new File(ruta);
         if(!file.exists())
             file.createNewFile();

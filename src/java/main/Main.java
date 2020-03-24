@@ -10,8 +10,10 @@ public class Main {
 
 	public static void main(String[] aArgs) {
 		Ventana v1 = new Ventana();
-		v1.iniciar_Vista_Mesas();
+		/*v1.iniciar_Vista_Mesas();
 		v1.iniciar_vista_administrador();
+		 */
+		v1.ventana_de_inicio();
 		Menu m = new Menu();
 		m.desplegarMenu();
 

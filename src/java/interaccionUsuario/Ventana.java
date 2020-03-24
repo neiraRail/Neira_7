@@ -6,6 +6,7 @@ import contextoProblema.Ingreso;
 
 import contextoProblema.Tienda;
 import contextoProblema.TipoPlato;
+import datos.Datos;
 
 
 import javax.swing.*;
@@ -13,8 +14,11 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.Objects;
 
 
 public class Ventana extends JFrame {
@@ -32,11 +36,13 @@ public class Ventana extends JFrame {
         tienda.comprarAutomatico();
     }
 
+    public void ventana_de_inicio(){
 
+        JFrame frame = new JFrame();
+        frame.setSize(300,300);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("Inicio");
 
-
-    public void iniciar_Vista_Mesas() {
-        JFrame frame = this;
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             //Codigo para preguntar antes de salir
             @Override
@@ -52,8 +58,97 @@ public class Ventana extends JFrame {
             }
         });
 
-        // Cuando la ventana cierre, el programa terminará
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        JPanel panel = new JPanel(new GridLayout(0,1));
+        JComboBox<String> comboBox = new JComboBox<>();
+        comboBox.addItem("Selecciona usuario");
+        comboBox.addItem("Administrador");
+        comboBox.addItem("Mesero");
+        JPasswordField passwordField = new JPasswordField();
+        JButton salir = new JButton("Salir");
+        JButton aceptar = new JButton("Aceptar");
+        final String[] usuario = new String[1];
+        usuario[0]=null;
+        //Gestion de eventos
+
+        ActionListener listener=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                usuario[0] = Objects.requireNonNull(comboBox.getSelectedItem()).toString();
+            }
+        };
+        comboBox.addActionListener(listener);
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String administrador = "Administrador";
+                String mesero = "Mesero";
+                /*String passad = "Administrador";
+
+                String pass = "Pass";*/
+                Datos datos = new Datos();
+                String[] passwords = datos.obtenerPasswords();
+                String pssObtenido = new String(passwordField.getPassword());
+                System.out.println(pssObtenido);
+
+
+                if (administrador.equals(usuario[0]) && pssObtenido.equals(passwords[0])) {
+                    frame.setVisible(false);
+                    iniciar_vista_administrador(frame);
+
+                }else if(mesero.equals(usuario[0]) && pssObtenido.equals(passwords[1])){
+                    frame.setVisible(false);
+                    iniciar_Vista_Mesas(frame);
+                }else{
+                    if (usuario[0]==null || pssObtenido.equals("") ){
+                        JOptionPane.showMessageDialog(frame, "Algun campo vacio");
+                    } else{
+                        JOptionPane.showMessageDialog(frame, "Contraseña incorrecta");
+                    }
+                }
+
+            }
+        });
+
+        panel.add(comboBox);
+        panel.add(passwordField);
+        panel.add(aceptar);
+        panel.add(salir);
+
+        frame.getContentPane().add(panel);
+
+
+
+
+
+        frame.setVisible(true);
+
+
+    }
+
+
+
+
+    public void iniciar_Vista_Mesas(JFrame inicio) {
+        JFrame frame = this;
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            //Codigo para preguntar antes de salir
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+               inicio.setVisible(true);
+            }
+        });
+
+        // Cuando la ventana cierre, el programa terminará
+
         // Tamaño de la ventana
         setSize(500,500);
         // La ventana se colocará en el centro de la pantalla.
@@ -397,27 +492,19 @@ public class Ventana extends JFrame {
 
 
 
-    public void iniciar_vista_administrador(){
+    public void iniciar_vista_administrador(JFrame inicio){
         JFrame frame = new JFrame();
         //Codigo para preguntar antes de salir.
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             //Codigo para preguntar antes de salir
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(frame,
-                        "Are you sure you want to close this window?", "Close Window?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                    tienda.guardarDatos();
-                    System.exit(0);
-                }
-
+                inicio.setVisible(true);
             }
         });
         //Caracteristicas de la ventana
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setTitle("Vista Administrador");
 
         JPanel panel = new JPanel(new GridLayout(0,1));

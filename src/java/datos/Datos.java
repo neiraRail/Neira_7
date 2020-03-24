@@ -5,9 +5,10 @@ import contextoProblema.Inventario;
 import contextoProblema.Tienda;
 
 public class Datos {
-    LectorJson lectorJson;
-    EscritorJson escritorJson;
-    ControlCSV csv;
+    String Datos = "datos/";
+    private LectorJson lectorJson;
+    private EscritorJson escritorJson;
+    private ControlCSV csv;
 
     public Datos(){
         lectorJson = new LectorJson("");
@@ -16,7 +17,7 @@ public class Datos {
     }
 
     public void guardarInventario(Inventario inventario) {
-        csv.crearArchivo("Inventario");
+        csv.crearArchivo("datos/Inventario.json");
         csv.imprimirInventario(inventario);
     }
 
@@ -25,5 +26,11 @@ public class Datos {
     }
 
     public void guardarBalance() {
+    }
+
+    public String[] obtenerPasswords() {
+        csv = new ControlCSV();
+        return csv.leerArchivo("datos/pass.csv");
+
     }
 }

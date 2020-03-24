@@ -3,9 +3,7 @@ package datos;
 import contextoProblema.Boleta;
 import contextoProblema.Inventario;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 
 public class ControlCSV {
 
@@ -55,4 +53,35 @@ public class ControlCSV {
 			e.printStackTrace();
 		}
 	}
+
+
+	public String[] leerArchivo(String ruta) {
+		String[] pass= null;
+		BufferedReader br = null;
+		try {
+			File file = new File(ruta);
+			FileReader fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			pass = br.readLine().split(",");
+			for(int i=0;i<pass.length;i++){
+				pass[i]=pass[i].split("\"")[1];
+			}
+			System.out.println(pass[0]+pass[1]);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return pass;
+	}
+
 }
