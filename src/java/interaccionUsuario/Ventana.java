@@ -674,6 +674,7 @@ public class Ventana extends JFrame {
                 if(mouseEvent.getSource().equals(botonCompAuto)){
                     tienda.comprarAutomatico();
                     JOptionPane.showMessageDialog(frame, "Compra automática exitosa");
+                    frame.dispose();
                 }
                 if(mouseEvent.getSource().equals(botonCompPer)){
                     double [] pedido = {0,0,0,0,0,0,0,0,0,0};
@@ -691,6 +692,8 @@ public class Ventana extends JFrame {
 
 
                     tienda.comprarPersonalizado(pedido);
+                    JOptionPane.showMessageDialog(frame, "Compra personalizada exitosa");
+                    frame.dispose();
 
                 }
             }
