@@ -93,7 +93,7 @@ public class Ventana extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String administrador = "Administrador";
                 String mesero = "Mesero";
-                /*String passad = "Administrador";
+               /* String passad = "Administrador";
 
                 String pass = "Pass";*/
                 Datos datos = new Datos();
@@ -112,6 +112,7 @@ public class Ventana extends JFrame {
                 }else{
                     if (usuario[0]==null || pssObtenido.equals("") ){
                         JOptionPane.showMessageDialog(frame, "Algun campo vacio");
+                        
                     } else{
                         JOptionPane.showMessageDialog(frame, "Contraseña incorrecta");
                     }
@@ -135,9 +136,6 @@ public class Ventana extends JFrame {
 
 
     }
-
-
-
 
     public void iniciar_Vista_Mesas(JFrame inicio) {
         JFrame frame = this;
@@ -225,11 +223,6 @@ public class Ventana extends JFrame {
 
     }
 
-
-
-
-
-
     private void ventana_Mesa(int nroMesa) {
         // Print para monitorear por consola
         System.out.println("Mesa"+nroMesa);
@@ -243,8 +236,6 @@ public class Ventana extends JFrame {
             ventana_Mesa_Libre(nroMesa);
         }
     }
-
-
 
     private void ventana_Mesa_Libre(int nroMesa) {
         // Se crea y se ajusta la ventana
@@ -492,8 +483,6 @@ public class Ventana extends JFrame {
             button4.setBackground(Color.GREEN);
     }
 
-
-
     public void iniciar_vista_administrador(JFrame inicio){
         JFrame frame = new JFrame();
         //Codigo para preguntar antes de salir.
@@ -599,7 +588,10 @@ public class Ventana extends JFrame {
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(inventario);
 
+
+
         frame.getContentPane().add(scroll);
+
 
         frame.setVisible(true);
     }
@@ -610,10 +602,132 @@ public class Ventana extends JFrame {
         frame.setLocationRelativeTo(null);
         //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setTitle("Comprar");
+        frame.setLayout(new GridLayout(12,1));
+
+        JButton botonCompPer = new JButton("comprar personalizado");
+        JButton botonCompAuto = new JButton("comprar automático");
+
+        JPanel panel = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+        JPanel panel4 = new JPanel();
+        JPanel panel5 = new JPanel();
+        JPanel panel6 = new JPanel();
+        JPanel panel7 = new JPanel();
+        JPanel panel8 = new JPanel();
+        JPanel panel9 = new JPanel();
+        JPanel panel10 = new JPanel();
+        JPanel panel0 = new JPanel();
+        JPanel panel1 = new JPanel();
 
 
-        JPanel panel = new JPanel(new GridLayout(1,2));
-        JTextArea area = new JTextArea();
+        JLabel label1 = new JLabel("Queso");
+        JTextField buscador1 = new JTextField(2);
+        JLabel label2 = new JLabel("Tomate");
+        JTextField buscador2 = new JTextField(2);
+        JLabel label3 = new JLabel("Churro");
+        JTextField buscador3 = new JTextField(2);
+        JLabel label4 = new JLabel("Manjar");
+        JTextField buscador4 = new JTextField(2);
+        JLabel label5 = new JLabel("Papas");
+        JTextField buscador5 = new JTextField(2);
+        JLabel label6 = new JLabel("Salame");
+        JTextField buscador6 = new JTextField(2);
+        JLabel label7 = new JLabel("Pan Pizza");
+        JTextField buscador7 = new JTextField(2);
+        JLabel label8 = new JLabel("Masa de empanadas");
+        JTextField buscador8 = new JTextField(2);
+        JLabel label9 = new JLabel("Aceite");
+        JTextField buscador9 = new JTextField(2);
+        JLabel label10 = new JLabel("Maiz");
+        JTextField buscador10 = new JTextField(2);
+
+
+        panel.add(label1);
+        panel.add(buscador1);
+        panel2.add(label2);
+        panel2.add(buscador2);
+        panel3.add(label3);
+        panel3.add(buscador3);
+        panel4.add(label4);
+        panel4.add(buscador4);
+        panel5.add(label5);
+        panel5.add(buscador5);
+        panel6.add(label6);
+        panel6.add(buscador6);
+        panel7.add(label7);
+        panel7.add(buscador7);
+        panel8.add(label8);
+        panel8.add(buscador8);
+        panel9.add(label9);
+        panel9.add(buscador9);
+        panel10.add(label10);
+        panel10.add(buscador10);
+
+
+        panel1.add(botonCompAuto);
+        panel0.add(botonCompPer);
+
+
+
+        MouseListener mouseListener=new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                if(mouseEvent.getSource().equals(botonCompAuto)){
+                    tienda.comprarAutomatico();
+                    JOptionPane.showMessageDialog(frame, "Compra automática exitosa");
+                    frame.dispose();
+                }
+                if(mouseEvent.getSource().equals(botonCompPer)){
+                    double [] pedido = {0,0,0,0,0,0,0,0,0,0};
+                    try{pedido[0] = Double.parseDouble(buscador1.getText());
+                        pedido[1] = Double.parseDouble(buscador2.getText());
+                        pedido[2] = Double.parseDouble(buscador3.getText());
+                        pedido[3] = Double.parseDouble(buscador4.getText());
+                        pedido[4] = Double.parseDouble(buscador5.getText());
+                        pedido[5] = Double.parseDouble(buscador6.getText());
+                        pedido[6] = Double.parseDouble(buscador7.getText());
+                        pedido[7] = Double.parseDouble(buscador8.getText());
+                        pedido[8] = Double.parseDouble(buscador9.getText());
+                        pedido[9] = Double.parseDouble(buscador10.getText());
+                    }catch (Exception e){ }
+
+
+                    tienda.comprarPersonalizado(pedido);
+                    JOptionPane.showMessageDialog(frame, "Compra personalizada exitosa");
+                    frame.dispose();
+
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) { }
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) { }
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) { }
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) { }
+        };
+
+        botonCompAuto.addMouseListener(mouseListener);
+        botonCompPer.addMouseListener(mouseListener);
+
+
+        frame.getContentPane().add(panel);
+        frame.getContentPane().add(panel2);
+        frame.getContentPane().add(panel3);
+        frame.getContentPane().add(panel4);
+        frame.getContentPane().add(panel5);
+        frame.getContentPane().add(panel6);
+        frame.getContentPane().add(panel7);
+        frame.getContentPane().add(panel8);
+        frame.getContentPane().add(panel9);
+        frame.getContentPane().add(panel10);
+        frame.getContentPane().add(panel1);
+        frame.getContentPane().add(panel0);
+
+
 
         frame.setVisible(true);
     }
@@ -682,6 +796,24 @@ public class Ventana extends JFrame {
 
 
     }
+    /*private void ventana_venta_exitoso(){
+    frame.addWindowListener(new java.awt.event.WindowAdapter() {
+        //Codigo para preguntar antes de salir
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            if (JOptionPane.showConfirmDialog(frame,
+                    "Are you sure you want to close this window?", "Close Window?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                tienda.guardarDatos();
+                System.exit(0);
+            }
+
+        }
+    });
+    }*/
+
+
 
     private String mostrar_Balance(Tienda tienda) {
         StringBuilder balance = new StringBuilder();

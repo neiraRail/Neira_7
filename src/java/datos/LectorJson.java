@@ -31,7 +31,7 @@ public class LectorJson {
         return texto.toString();
 
     }
-    public  ArrayList<String> separaBoletas(String texto){
+    public static ArrayList<String> separaBoletas(String texto){
         String[] boletasplus= texto.split("[\\{\\}]");
         int nro_boletas=(boletasplus.length-2)/2;
         System.out.println(nro_boletas);
@@ -46,13 +46,13 @@ public class LectorJson {
         return boletas;
     }
 
-    public int obtenerId (String boleta){
+    public static int obtenerId(String boleta){
         String[] str=boleta.split(",");
         String[] str2 = str[0].split(":");
         return stringAInt(str2[1]);
     }
 
-    private int stringAInt(String myString){
+    private static int stringAInt(String myString){
         int num;
         try {
             num = Integer.parseInt(myString);
@@ -65,7 +65,7 @@ public class LectorJson {
     }
 
 
-    public String buscarBoleta (int id, ArrayList<String> boletas){
+    public static String buscarBoleta(int id, ArrayList<String> boletas){
         for(int i=0; i<boletas.size();i++){
             if (obtenerId(boletas.get(i))==id){
                 return boletas.get(i);
