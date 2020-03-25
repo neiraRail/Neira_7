@@ -45,6 +45,13 @@ public class Caja {
         hacer_Ingreso(tienda.getMesa(nroMesa).getBoleta());
     }
 
+    public void guardarBoleta(int nroMesa) {
+        Datos datos = new Datos();
+        datos.guardarBoleta(tienda.getMesa(nroMesa).getBoleta());
+        tienda.getMesa(nroMesa).setOcupado(false);
+        hacer_Ingreso(tienda.getMesa(nroMesa).getBoleta());
+    }
+
     public Boleta abrirBoleta(int nroMesa) {
         Boleta boleta = new Boleta(talonario.size(),tienda,nroMesa);
         this.talonario.add(boleta);
@@ -70,11 +77,6 @@ public class Caja {
         for (Egreso e:egresos)
             total_CE+=e.getMonto();
         return total_CI-total_CE;
-    }
-
-    public void guardarBoleta(int nroMesa) {
-        Datos datos = new Datos();
-        datos.guardarBoleta(tienda.getMesa(nroMesa).getBoleta());
     }
 }
 

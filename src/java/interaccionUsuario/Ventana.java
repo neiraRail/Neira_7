@@ -33,8 +33,8 @@ public class Ventana extends JFrame {
 
 
     public Ventana(){
-        tienda.comprarAutomatico();
-        //tienda.traerDatos();
+
+        tienda.traerDatos();
     }
 
     public void ventana_de_inicio(){
@@ -42,7 +42,7 @@ public class Ventana extends JFrame {
         JFrame frame = new JFrame();
         frame.setSize(300,300);
         frame.setLocationRelativeTo(null);
-        frame.setTitle("Inicio");
+        frame.setTitle("FoodPoo 3.0");
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             //Codigo para preguntar antes de salir
@@ -53,7 +53,7 @@ public class Ventana extends JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     tienda.guardarDatos();
-                    System.out.println("Chaochao");
+                    System.out.println("Datos Guardados");
                     System.exit(0);
                 }
 
@@ -61,7 +61,6 @@ public class Ventana extends JFrame {
         });
 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
         JPanel panel = new JPanel(new GridLayout(0,1));
         JComboBox<String> comboBox = new JComboBox<>();
         comboBox.addItem("Selecciona usuario");

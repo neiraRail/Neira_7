@@ -13,6 +13,9 @@ public class ControlCSV {
 	void imprimirInventario(Inventario inventario){
 		try {
 			File file = new File("datos/Inventario.csv");
+			if(!file.exists()) {
+				file.createNewFile();
+			}
 			FileWriter fw = new FileWriter(file,false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(inventario.toCSV());
@@ -74,13 +77,20 @@ public class ControlCSV {
 	}
 
 	public double[] leerInventario(String ruta) {
-		String inventariocsv = leerArchivo(ruta);
-		String[] inventario = inventariocsv.split(" ");
-		double[] cantidades = new double[inventario.length];
-		for(int i=0;i<inventario.length;i++){
-			cantidades[i] = Double.parseDouble(inventario[i].split(",")[1]);
+		try {
+			String inventariocsv = leerArchivo(ruta);
+			String[] inventario = inventariocsv.split(" ");
+			double[] cantidades = new double[inventario.length];
+			for (int i = 0; i < inventario.length; i++) {
+				cantidades[i] = Double.parseDouble(inventario[i].split(",")[1]);
+			}
+			return cantidades;
 		}
-		return cantidades;
+		catch (ArrayIndexOutOfBoundsException aiobe){
 
+			double[] cantidades = new double[10];
+			System.out.println(cantidades[2]);
+			return cantidades;
+		}
 	}
 }
