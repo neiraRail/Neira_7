@@ -17,8 +17,8 @@ public class EscritorJson {
     public void agregarObjeto(Boleta boleta){
         LectorJson lector = new LectorJson(ruta);
         String texto=lector.leer_Archivo();
-        String target="]}";
-        texto = texto.replaceAll(target,","+"\n  "+boleta.toJSON()+"]}");
+        String target="}]";
+        texto = texto.replaceAll(target,","+"\n  "+boleta.toJSON()+"}]");
         this.escribir_Texto(texto);
     }
 

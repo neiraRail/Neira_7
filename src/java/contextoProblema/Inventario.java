@@ -21,4 +21,10 @@ public class Inventario {
         }
         return stringBuilder.toString();
     }
+
+    public void actualizarCon(double[] datosInventario) {
+        for(Ingredientes i:Ingredientes.values()){
+            i.setCantidad(datosInventario[i.ordinal()]);
+        }
+    }
 }

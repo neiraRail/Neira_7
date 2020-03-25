@@ -13,12 +13,11 @@ public class Tienda {
 
 	private Caja caja;
 	private Cocina cocina;
+	private Inventario inventario = new Inventario();
 
 	public Inventario getInventario() {
 		return inventario;
 	}
-
-	private Inventario inventario = new Inventario();
 
 
 	public Tienda() {
@@ -95,4 +94,8 @@ public class Tienda {
 		datos.guardarBalance();
 		System.out.println("Fin del programa");
     }
+    public void traerDatos(){
+		Datos datos = new Datos();
+		inventario.actualizarCon(datos.obtenerInventario());
+	}
 }

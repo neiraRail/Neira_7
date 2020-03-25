@@ -10,29 +10,9 @@ public class ControlCSV {
 	public ControlCSV() {
 	}
 
-	public void crearBoleta(Boleta boleta) {
-		crearArchivo("Boleta "+boleta.getNroID());
-	}
-
-	public void crearArchivo(String nombre) {
+	void imprimirInventario(Inventario inventario){
 		try {
-			File file = new File(nombre+".csv");
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			else{
-				file.delete();
-				file.createNewFile();
-			}
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-
-	public void imprimirInventario(Inventario inventario){
-		try {
-			File file = new File("Inventario"+".csv");
+			File file = new File("datos/Inventario.csv");
 			FileWriter fw = new FileWriter(file,false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(inventario.toCSV());
@@ -54,19 +34,18 @@ public class ControlCSV {
 		}
 	}
 
-
-	public String[] leerArchivo(String ruta) {
-		String[] pass= null;
+	public String leerArchivo(String ruta){
 		BufferedReader br = null;
+		StringBuilder text = new StringBuilder();
 		try {
 			File file = new File(ruta);
 			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
-			pass = br.readLine().split(",");
-			for(int i=0;i<pass.length;i++){
-				pass[i]=pass[i].split("\"")[1];
+			String sCadena;
+			while((sCadena = br.readLine())!=null){
+				text.append(sCadena+" ");
 			}
-			System.out.println(pass[0]+pass[1]);
+
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -79,9 +58,29 @@ public class ControlCSV {
 					e.printStackTrace();
 				}
 			}
+		}
+		return text.toString();
+	}
 
+
+	public String[] leerPassword(String ruta) {
+		String[] pass;
+		String passes = leerArchivo(ruta);
+		pass = passes.split(",");
+		for(int i=0;i<pass.length;i++){
+			pass[i]=pass[i].split("\"")[1];
 		}
 		return pass;
 	}
 
+	public double[] leerInventario(String ruta) {
+		String inventariocsv = leerArchivo(ruta);
+		String[] inventario = inventariocsv.split(" ");
+		double[] cantidades = new double[inventario.length];
+		for(int i=0;i<inventario.length;i++){
+			cantidades[i] = Double.parseDouble(inventario[i].split(",")[1]);
+		}
+		return cantidades;
+
+	}
 }

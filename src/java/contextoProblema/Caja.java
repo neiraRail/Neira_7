@@ -48,9 +48,6 @@ public class Caja {
     public Boleta abrirBoleta(int nroMesa) {
         Boleta boleta = new Boleta(talonario.size(),tienda,nroMesa);
         this.talonario.add(boleta);
-
-        ControlCSV ctrl = new ControlCSV();
-        ctrl.crearBoleta(boleta);
         return boleta;
     }
 

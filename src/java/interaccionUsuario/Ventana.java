@@ -34,6 +34,7 @@ public class Ventana extends JFrame {
 
     public Ventana(){
         tienda.comprarAutomatico();
+        //tienda.traerDatos();
     }
 
     public void ventana_de_inicio(){
@@ -52,6 +53,7 @@ public class Ventana extends JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     tienda.guardarDatos();
+                    System.out.println("Chaochao");
                     System.exit(0);
                 }
 
@@ -82,6 +84,7 @@ public class Ventana extends JFrame {
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tienda.guardarDatos();
                 System.exit(0);
             }
         });
@@ -341,8 +344,7 @@ public class Ventana extends JFrame {
 
                 }
                 else {
-                    // Se emite una boleta en formato csv
-                    tienda.getCaja().emitirBoleta(nroMesa);
+                    // Se emite una boleta en formato json
                     tienda.getCaja().guardarBoleta(nroMesa);
                     // Aviso de boleta emitida
 
