@@ -33,8 +33,11 @@ public class Ventana extends JFrame {
 
 
     public Ventana(){
-
-        tienda.traerDatos();
+        try {
+            tienda.traerDatos();
+        }catch (ArrayIndexOutOfBoundsException bounds){
+            JOptionPane.showMessageDialog(this, "Archivo de inventario no válido");
+        }
     }
 
     public void ventana_de_inicio(){
