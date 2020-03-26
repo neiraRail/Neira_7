@@ -28,20 +28,30 @@ public enum TipoPlato {
 		return this.precio;
 	}
 
-	public static TipoPlato get(int index){
-		switch (index) {
-			case 0: return Empanada;
-			case 1: return Pizza;
-			case 2: return Churro;
-			case 3: return Papas_Fritas;
-			case 4: return Humita;
-			default: return null;
-		}
-	}
-
 	public String toString(){
 		return name()+": $"+getPrecio();
 	}
 
-
+	public static TipoPlato get(double index, boolean porPrecio){
+		if(porPrecio) {
+			switch ((int)index) {
+				case 1000: return Empanada;
+				case 1500: return Pizza;
+				case 800: return Churro;
+				case 600: return Papas_Fritas;
+				case 1200: return Humita;
+				default: return null;
+			}
+		}
+		else {
+			switch ((int)index) {
+				case 0: return Empanada;
+				case 1: return Pizza;
+				case 2: return Churro;
+				case 3: return Papas_Fritas;
+				case 4: return Humita;
+				default: return null;
+			}
+		}
+	}
 }

@@ -7,7 +7,7 @@ import datos.EscritorJson;
 import java.util.ArrayList;
 
 public class Caja {
-    private ArrayList<Boleta> talonario = new ArrayList<>();
+    //private ArrayList<Boleta> talonario = new ArrayList<>();
     private Tienda tienda;
     private ArrayList<Ingreso> ingresos = new ArrayList<>();
     private ArrayList<Egreso> egresos = new ArrayList<>();
@@ -17,9 +17,9 @@ public class Caja {
     }
 
 
-    public ArrayList<Boleta> getTalonario() {
+    /*public ArrayList<Boleta> getTalonario() {
         return talonario;
-    }
+    }*/
 
 
     public ArrayList<Ingreso> getIngresos() {
@@ -30,33 +30,35 @@ public class Caja {
         return egresos;
     }
 
-    public String mostrarTalonario() {
+    /*public String mostrarTalonario() {
         StringBuilder stringBuilder=new StringBuilder();
         for (Boleta boleta : talonario) {
             stringBuilder.append(boleta).append("\n");
         }
         return stringBuilder.toString();
-    }
-
+    }*/
+/*
     public void emitirBoleta(int nroMesa) {
         ControlCSV ctrl = new ControlCSV();
         ctrl.imprimirBoleta(tienda.getMesa(nroMesa).getBoleta());
         tienda.getMesa(nroMesa).setOcupado(false);
         hacer_Ingreso(tienda.getMesa(nroMesa).getBoleta());
-    }
+    }*/
 
-    public void guardarBoleta(int nroMesa) {
+    public void guardarBoleta(Mesa mesa) {
         Datos datos = new Datos();
-        datos.guardarBoleta(tienda.getMesa(nroMesa).getBoleta());
-        tienda.getMesa(nroMesa).setOcupado(false);
-        hacer_Ingreso(tienda.getMesa(nroMesa).getBoleta());
+        datos.guardarBoleta(mesa.getBoleta());
+        mesa.setOcupado(false);
+        hacer_Ingreso(mesa.getBoleta());
     }
 
-    public Boleta abrirBoleta(int nroMesa) {
-        Boleta boleta = new Boleta(talonario.size(),tienda,nroMesa);
-        this.talonario.add(boleta);
-        return boleta;
+
+    public Boleta getBoleta(int boletaID){
+        Datos datos = new Datos();
+        return datos.buscarBoleta(boletaID);
+
     }
+
 
     private void hacer_Ingreso(Boleta boleta) {
         Ingreso CI = new Ingreso(boleta);
@@ -77,6 +79,11 @@ public class Caja {
         for (Egreso e:egresos)
             total_CE+=e.getMonto();
         return total_CI-total_CE;
+    }
+
+    public int sizeTalonario(){
+        Datos datos = new Datos();
+        return datos.nroBoletas();
     }
 }
 

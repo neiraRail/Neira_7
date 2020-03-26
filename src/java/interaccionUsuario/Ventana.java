@@ -98,7 +98,7 @@ public class Ventana extends JFrame {
                 Datos datos = new Datos();
                 String[] passwords = datos.obtenerPasswords();
                 String pssObtenido = new String(passwordField.getPassword());
-                System.out.println(pssObtenido);
+
 
 
                 if (administrador.equals(usuario[0]) && pssObtenido.equals(passwords[0])) {
@@ -224,7 +224,7 @@ public class Ventana extends JFrame {
 
     private void ventana_Mesa(int nroMesa) {
         // Print para monitorear por consola
-        System.out.println("Mesa"+nroMesa);
+        //System.out.println("Mesa"+nroMesa);
 
         if(tienda.getMesa(nroMesa).esOcupado()&&tienda.getMesa(nroMesa).getBoleta().getTotal()!=0){
             //Si la mesa está ocupada, se abre una ventana que corresponde
@@ -335,10 +335,10 @@ public class Ventana extends JFrame {
                 }
                 else {
                     // Se emite una boleta en formato json
-                    tienda.getCaja().guardarBoleta(nroMesa);
+                    tienda.getCaja().guardarBoleta(tienda.getMesa(nroMesa));
                     // Aviso de boleta emitida
 
-                    boleta_Emitida(dialog);
+                    boleta_Emitida(dialog,nroMesa);
                     // Se cierra esta ventana
                     dialog.dispose();
 
@@ -361,15 +361,16 @@ public class Ventana extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void boleta_Emitida(JDialog frame) {
+    private void boleta_Emitida(JDialog frame, int nroMesa) {
         JDialog dialog = new JDialog(frame);
         dialog.setModal(true);
-        int LAST = tienda.getCaja().getTalonario().size()-1;
-        int HEIGHT = tienda.getCaja().getTalonario().get(LAST).getConsumo().size() * 15 + 115;
+        //int LAST = tienda.getCaja().sizeTalonario();
+        //System.out.println(LAST);
+        int HEIGHT = tienda.getMesa(nroMesa).getBoleta().getConsumo().size() * 15 + 115;
         dialog.setSize(250,HEIGHT);
         dialog.setLocationRelativeTo(null);
         JLabel label = new JLabel("Boleta Emitida Correctamente");
-        JTextArea boleta = new JTextArea(tienda.getCaja().getTalonario().get(LAST).toString());
+        JTextArea boleta = new JTextArea(tienda.getMesa(nroMesa).getBoleta().toString());
         boleta.setEditable(false);
         dialog.add(label,BorderLayout.NORTH);
         dialog.add(boleta,BorderLayout.CENTER);
@@ -434,8 +435,7 @@ public class Ventana extends JFrame {
             public void mouseClicked(MouseEvent mouseEvent) {
                 for(int i=0;i<5;i++){
                     if(mouseEvent.getSource().equals(botones_platos[i])){
-
-                        System.out.println("boton presseed");
+                        //System.out.println("boton presseed");
                         tienda.ocuparMesa(nroMesa);
                         actualizar_MainButtons();
                         tienda.getMesa(nroMesa).hacerPedido(i);
@@ -755,16 +755,16 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                int numero = Integer.parseInt(buscador.getText());
-                vista_Boleta.setText(tienda.getCaja().getTalonario().get(numero).toString());
+                int boletaID = Integer.parseInt(buscador.getText());
+                vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
             }
         };
 
         MouseListener mouseListener=new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                int numero = Integer.parseInt(buscador.getText());
-                vista_Boleta.setText(tienda.getCaja().getTalonario().get(numero).toString());
+                int boletaID = Integer.parseInt(buscador.getText());
+                vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
             }
 
             @Override

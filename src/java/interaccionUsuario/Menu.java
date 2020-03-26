@@ -56,7 +56,7 @@ public class Menu {
 					hacer_Pedido(tienda);
 					break;
 				case 3:
-					mostrarTalonario(tienda);
+					//mostrarTalonario(tienda);
 					break;
 				case 4:
 					mostrar_Balance(tienda);
@@ -119,9 +119,9 @@ public class Menu {
 	}
 
 
-	private void mostrarTalonario(Tienda tienda) {
+	/*private void mostrarTalonario(Tienda tienda) {
 		System.out.println(tienda.getCaja().mostrarTalonario());
-	}
+	}*/
 
 	private void vistaMesero(Tienda tienda){
 		int opcion;
@@ -187,7 +187,7 @@ public class Menu {
 					salir=true;
 					break;
 				case 2:
-					tienda.getCaja().emitirBoleta(mesa);
+					//tienda.getCaja().emitirBoleta(mesa);
 					salir=true;
 					break;
 				case 3:
@@ -231,7 +231,7 @@ public class Menu {
 
 	private void mostrarOpciones() {
 		for(int i=0;i<5;i++) {
-			System.out.println("[" + (i+1) + "] "+TipoPlato.get(i));
+			System.out.println("[" + (i+1) + "] "+TipoPlato.get(i,false));
 		}
 		System.out.println("[6] Salir");
 	}

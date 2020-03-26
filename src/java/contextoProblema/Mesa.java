@@ -54,14 +54,14 @@ public class Mesa {
         catch (Sin_Ingredientes_Excepcion SIE){
             System.out.println("Faltan los siguientes Ingredientes");
             for(Ingredientes i:SIE.ingredientes){
-                System.out.println(i.name()+": "+ Objects.requireNonNull(TipoPlato.get(opcion)).faltante(i));
+                System.out.println(i.name()+": "+ Objects.requireNonNull(TipoPlato.get(opcion,false)).faltante(i));
             }
         }
     }
 
 
     private void agregarPlato(int opcion)throws Sin_Ingredientes_Excepcion {
-        TipoPlato plato = TipoPlato.get(opcion);
+        TipoPlato plato = TipoPlato.get(opcion,false);
         tienda.getCocina().usarIngredientes(plato);
         boleta.getConsumo().add(plato);
     }

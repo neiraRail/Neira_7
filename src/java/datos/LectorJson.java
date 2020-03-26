@@ -34,21 +34,23 @@ public class LectorJson {
     public static ArrayList<String> separaBoletas(String texto){
         String[] boletasplus= texto.split("[\\{\\}]");
         int nro_boletas=(boletasplus.length-2)/2;
-        System.out.println(nro_boletas);
+        System.out.println();
+
         ArrayList <String> boletas= new ArrayList<String>();
         for (int i=2; i<boletasplus.length;i=i+2){
-            int j=0;
+
             boletas.add(boletasplus[i]);
-            j++;
-
         }
-
+        System.out.println(boletas.size());
         return boletas;
     }
 
     public static int obtenerId(String boleta){
         String[] str=boleta.split(",");
+        //System.out.println("str = "+str[0]);
         String[] str2 = str[0].split(":");
+        //System.out.println("str2 = "+str2[1]);
+
         return stringAInt(str2[1]);
     }
 
@@ -66,6 +68,7 @@ public class LectorJson {
 
 
     public static String buscarBoleta(int id, ArrayList<String> boletas){
+        System.out.println("boletas.size para buscar boletas= "+boletas.size()+"ID buscado = "+id);
         for(int i=0; i<boletas.size();i++){
             if (obtenerId(boletas.get(i))==id){
                 return boletas.get(i);

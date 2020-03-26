@@ -38,12 +38,27 @@ public class Tienda {
 
 	public void ocuparMesa(int nroMesa){
 		if(!mesas[nroMesa].esOcupado()) {
-			Boleta boleta = caja.abrirBoleta(nroMesa);
+			int nroBoletas=buscarUltimaBoleta();
+			System.out.println("Se crea una boleta con id = "+(nroBoletas));
+			Boleta boleta = new Boleta(nroBoletas,this,nroMesa);
 			mesas[nroMesa] = new Mesa(this);
 			mesas[nroMesa].setBoleta(boleta);
 			mesas[nroMesa].setOcupado(true);
 		}
 	}
+	private int buscarUltimaBoleta(){
+		Datos datos = new Datos();
+		int id=datos.nroBoletas();
+		for (Mesa m:mesas){
+			if(m.esOcupado()){
+				if(m.getBoleta().getNroID()>=id){
+					id=m.getBoleta().getNroID()+1;
+				}
+			}
+		}
+		return id;
+	}
+
 
 	public void comprarAutomatico(){
 		double gasto = calcularGastoAutomatico();

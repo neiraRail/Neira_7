@@ -26,4 +26,11 @@ public class DatosTest {
     @Test
     public void obtenerPasswords() {
     }
+    @Test
+    public void buscarBoleta(){
+        Datos datos = new Datos();
+        datos.buscarBoleta(1);
+    }
+
+
 }
