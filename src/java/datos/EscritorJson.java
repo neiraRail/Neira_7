@@ -17,6 +17,7 @@ public class EscritorJson {
     public void agregarObjeto(Boleta boleta){
         LectorJson lector = new LectorJson(ruta);
         String texto=lector.leer_Archivo();
+
         String target="]}";
         System.out.println("agregar objeto cuando hay ya :"+LectorJson.separaBoletas(texto).size());
         if (LectorJson.separaBoletas(texto).size()-1>0) {

@@ -5,22 +5,17 @@ import java.util.Calendar;
 
 public class Boleta {
 	private int nroID;
-	private int nroMesa;
-	private Tienda tienda;
 	private Calendar fecha=Calendar.getInstance();
     private ArrayList<TipoPlato> consumo= new ArrayList<>();
 
 
 
-	Boleta(int nroBoletas,Tienda tienda,int nroMesa) {
+	Boleta(int nroBoletas) {
 		this.nroID=nroBoletas;
-		this.tienda=tienda;
-		this.nroMesa=nroMesa;
 	}
 
 	public Boleta(int nroBoleta, ArrayList<TipoPlato> consumo){
 		this.nroID=nroBoleta;
-		this.nroMesa=0;
 		this.consumo=consumo;
 	}
 
@@ -60,9 +55,6 @@ public class Boleta {
 		return boleta.toString();
 	}
 
-	public String toCSV() {
-		return getNroID() + "," + getFecha() + "," + tienda.getMesa(nroMesa).consumoCSV() + this.getTotal();
-	}
 
 	public String toJSON(){
 		return "{"+"\"id\":"+getNroID()+","+"\"fecha\":\""+getFecha()+"\","+"\"consumo\":["+consumoToJson()+"],\"total\":"+getTotal()+"}";
@@ -83,5 +75,13 @@ public class Boleta {
 
 		return str.toString();
 
+	}
+
+	public String consumoString() {
+		StringBuilder platos = new StringBuilder();
+		for (TipoPlato tipoPlato : getConsumo()) {
+			platos.append(tipoPlato.toString()).append("\n");
+		}
+		return platos.toString();
 	}
 }

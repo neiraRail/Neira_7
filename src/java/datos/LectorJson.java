@@ -17,8 +17,11 @@ public class LectorJson {
 
     private String intentar_leer_Archivo() throws IOException {
         File file = new File(ruta);
-        if(!file.exists())
+        if (!file.exists()) {
+            EscritorJson escritor = new EscritorJson(ruta);
             file.createNewFile();
+            escritor.escribir_Texto("{\"Boletas\":[]}");
+        }
         StringBuilder texto= new StringBuilder();
         String linea;
         FileReader fr = new FileReader(ruta);

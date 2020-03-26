@@ -49,7 +49,7 @@ public class Ventana extends JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(frame,
-                        "Are you sure you want to close this window?", "Close Window?",
+                        "Estas seguro que quieres salir?", "Cerrar Ventana",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     tienda.guardarDatos();
@@ -136,7 +136,7 @@ public class Ventana extends JFrame {
 
     }
 
-    public void iniciar_Vista_Mesas(JFrame inicio) {
+    private void iniciar_Vista_Mesas(JFrame inicio) {
         JFrame frame = this;
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -289,7 +289,7 @@ public class Ventana extends JFrame {
 
     private void ventana_Mesa_Ocupada(int nroMesa) {
         //Texto que representa el consumo de la mesa
-        String consumo = tienda.getMesa(nroMesa).consumoString()+"\nTotal: "+tienda.getMesa(nroMesa).getBoleta().getTotal();
+        String consumo = tienda.getMesa(nroMesa).getBoleta().consumoString()+"\nTotal: "+tienda.getMesa(nroMesa).getBoleta().getTotal();
 
         // Se crea y se ajusta la ventana
 
@@ -689,11 +689,15 @@ public class Ventana extends JFrame {
                         pedido[7] = Double.parseDouble(buscador8.getText());
                         pedido[8] = Double.parseDouble(buscador9.getText());
                         pedido[9] = Double.parseDouble(buscador10.getText());
-                    }catch (Exception e){ }
+                        tienda.comprarPersonalizado(pedido);
+                        JOptionPane.showMessageDialog(frame, "Compra personalizada exitosa");
+
+                    }catch (Exception e){
+                        JOptionPane.showMessageDialog(frame, "Valores no validos para comprar");
+                    }
 
 
-                    tienda.comprarPersonalizado(pedido);
-                    JOptionPane.showMessageDialog(frame, "Compra personalizada exitosa");
+
                     frame.dispose();
 
                 }
@@ -755,16 +759,30 @@ public class Ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                int boletaID = Integer.parseInt(buscador.getText());
-                vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
+                try {
+                    int boletaID = Integer.parseInt(buscador.getText());
+                    vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
+                }catch (ArrayIndexOutOfBoundsException bounds){
+                    JOptionPane.showMessageDialog(frame, "No se pudo encontrar la boleta!");
+                }
+                catch (NullPointerException | NumberFormatException Null){
+                    JOptionPane.showMessageDialog(frame, "La boleta que está buscando es inválida");
+                }
             }
         };
 
         MouseListener mouseListener=new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                int boletaID = Integer.parseInt(buscador.getText());
-                vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
+                try {
+                    int boletaID = Integer.parseInt(buscador.getText());
+                    vista_Boleta.setText(tienda.getCaja().getBoleta(boletaID).toString());
+                }catch (ArrayIndexOutOfBoundsException bounds){
+                    JOptionPane.showMessageDialog(frame, "No se pudo encontrar la boleta!");
+                }
+                catch (NullPointerException Null){
+                    JOptionPane.showMessageDialog(frame, "La boleta que está buscando es inválida");
+                }
             }
 
             @Override
@@ -795,22 +813,7 @@ public class Ventana extends JFrame {
 
 
     }
-    /*private void ventana_venta_exitoso(){
-    frame.addWindowListener(new java.awt.event.WindowAdapter() {
-        //Codigo para preguntar antes de salir
-        @Override
-        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-            if (JOptionPane.showConfirmDialog(frame,
-                    "Are you sure you want to close this window?", "Close Window?",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                tienda.guardarDatos();
-                System.exit(0);
-            }
 
-        }
-    });
-    }*/
 
 
 

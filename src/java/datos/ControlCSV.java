@@ -9,6 +9,16 @@ public class ControlCSV {
 
 	public ControlCSV() {
 	}
+	void escribir(String ruta,String texto){
+		try {
+			FileWriter fw = new FileWriter(ruta, false);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(texto);
+			bw.close();
+		}catch (Exception e){
+
+		}
+	}
 
 	void imprimirInventario(Inventario inventario){
 		try {
@@ -25,28 +35,20 @@ public class ControlCSV {
 		}
 	}
 
-	public void imprimirBoleta(Boleta boletActual) {
-		try {
-			File file = new File("Boleta_"+boletActual.getNroID()+".csv");
-			FileWriter fw = new FileWriter(file,true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write("\n"+boletActual.toCSV());
-			bw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public String leerArchivo(String ruta){
 		BufferedReader br = null;
 		StringBuilder text = new StringBuilder();
 		try {
 			File file = new File(ruta);
+			if(!file.exists()) {
+				file.createNewFile();
+			}
 			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
 			String sCadena;
 			while((sCadena = br.readLine())!=null){
-				text.append(sCadena+" ");
+				text.append(sCadena).append(" ");
 			}
 
 		}
@@ -69,9 +71,16 @@ public class ControlCSV {
 	public String[] leerPassword(String ruta) {
 		String[] pass;
 		String passes = leerArchivo(ruta);
-		pass = passes.split(",");
-		for(int i=0;i<pass.length;i++){
-			pass[i]=pass[i].split("\"")[1];
+		try {
+			pass = passes.split(",");
+			for (int i = 0; i < pass.length; i++) {
+				pass[i] = pass[i].split("\"")[1];
+			}
+		}catch (ArrayIndexOutOfBoundsException bounds){
+			pass =new String[2];
+			escribir(ruta,"administrador,pass");
+			pass[0]="administrador";
+			pass[1]="pass";
 		}
 		return pass;
 	}

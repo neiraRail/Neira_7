@@ -21,7 +21,7 @@ public class Tienda {
 
 
 	public Tienda() {
-		caja = new Caja(this);
+		caja = new Caja();
 		cocina = new Cocina(this);
 		//inventario.comprarAutomatico();
 	}
@@ -40,7 +40,7 @@ public class Tienda {
 		if(!mesas[nroMesa].esOcupado()) {
 			int nroBoletas=buscarUltimaBoleta();
 			System.out.println("Se crea una boleta con id = "+(nroBoletas));
-			Boleta boleta = new Boleta(nroBoletas,this,nroMesa);
+			Boleta boleta = new Boleta(nroBoletas);
 			mesas[nroMesa] = new Mesa(this);
 			mesas[nroMesa].setBoleta(boleta);
 			mesas[nroMesa].setOcupado(true);

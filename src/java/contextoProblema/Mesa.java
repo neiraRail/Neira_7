@@ -31,21 +31,8 @@ public class Mesa {
         return ocupado;
     }
 
-    public String consumoString() {
-        StringBuilder platos = new StringBuilder();
-        for (TipoPlato tipoPlato : boleta.getConsumo()) {
-            platos.append(tipoPlato.toString()).append("\n");
-        }
-        return platos.toString();
-    }
 
-    String consumoCSV(){
-        StringBuilder platos = new StringBuilder();
-        for (TipoPlato tipoPlato : boleta.getConsumo()) {
-            platos.append(tipoPlato).append(",");
-        }
-        return platos.toString();
-    }
+
 
     public void hacerPedido(int opcion){
         try {

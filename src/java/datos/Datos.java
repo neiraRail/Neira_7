@@ -57,7 +57,7 @@ public class Datos {
         return new Boleta(nroID,consumo);
     }
 
-     ArrayList<TipoPlato> crearConsumo(String[] listado) {
+     private ArrayList<TipoPlato> crearConsumo(String[] listado) {
         ArrayList<TipoPlato> consumo = new ArrayList<>();
         for(String plato:listado){
             double precio = Double.parseDouble(plato);
